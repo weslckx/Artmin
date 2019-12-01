@@ -27,11 +27,17 @@ public class AppController {
      
     @Autowired
     MessageSource messageSource;
- 
+
+    @RequestMapping(value={"/"})
+    public String showIndex(){
+        return "index";
+    }
+    
+    
     /*
      * This method will list all existing users.
      */
-    @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/list" }, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
  
         List<User> users = userService.findAllUsers();
