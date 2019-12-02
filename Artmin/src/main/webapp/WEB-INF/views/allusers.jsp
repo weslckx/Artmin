@@ -3,19 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-       
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
     <title>Users</title>
- 
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
     <style>
         tr:first-child{
             font-weight: bold;
             background-color: #C6C9C4;
         }
     </style>
- 
 </head>
  
  
