@@ -8,7 +8,7 @@
 <title>Registrate</title>
 </head>
 <body>
-  
+  Registration Page woop woop
     <br/>
     <br/>
     Go back to <a href="<c:url value='/login' />">Login</a>
