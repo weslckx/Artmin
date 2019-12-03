@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
  
 import org.hibernate.validator.constraints.NotEmpty;
@@ -27,7 +28,7 @@ public class User {
     private String password;
  
     @Size(min=6, max=50)
-    @Column(name = "CONFIRMPASSWORD", nullable = false)
+    @Transient
     private String confirmPassword;
     
     public int getId() {
