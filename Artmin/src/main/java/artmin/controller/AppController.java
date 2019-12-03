@@ -41,6 +41,13 @@ public class AppController {
         return "index";
     }
     
+    @RequestMapping(value={"/register"})
+    public String registerUser()
+    {
+        return "registration";
+    }
+            
+    
 //    
 //    /*
 //     * This method will list all existing users.

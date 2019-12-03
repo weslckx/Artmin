@@ -11,6 +11,8 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  *
  * @author Wes
  */
+
+// Activate Security Filter
 public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
     
 }

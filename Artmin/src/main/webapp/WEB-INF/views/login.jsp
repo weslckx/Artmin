@@ -26,6 +26,9 @@
       <tr>
         <td><button type="submit">Login</button></td>
       </tr>
+      <tr>
+           <a href="<c:url value='/register' />">New? Register here!</a>
+      </tr>
     </table>
   </form>
   <br/>

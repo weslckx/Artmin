@@ -8,6 +8,7 @@ package artmin.configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,12 +20,13 @@ import org.springframework.security.core.GrantedAuthority;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
+    // Configure Users -> here we need to make connection to database
    @Override
    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
       auth.inMemoryAuthentication()
       .withUser("admin").password("admin123").roles("USER");
    }
-   
+   // Here we need to configure the security of web paths
     @Override
    protected void configure(HttpSecurity http) throws Exception {
       http.authorizeRequests().anyRequest().hasAnyRole("USER","ADMIN")
@@ -32,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests().antMatchers("/login**").permitAll()
       .and()
       .formLogin()
-      .loginPage("/login") // Specifies the login page URL
+      .loginPage("/login") // What is my standard login page?
       .loginProcessingUrl("/signin") // Specifies the URL,which is used 
                                      //in action attribute on the <from> tag
       .usernameParameter("userid")  // Username parameter, used in name attribute
@@ -51,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .failureHandler((req,res,exp)->{  // Failure handler invoked after authentication failure
          String errMsg="";
          if(exp.getClass().isAssignableFrom(BadCredentialsException.class)){
-            errMsg="Invalid username or password.";
+            errMsg="Sorry, invalid username or password";
          }else{
             errMsg="Unknown error - "+exp.getMessage();
          }
@@ -74,4 +76,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .and()
       .csrf().disable(); // Disable CSRF support
    }
+   
+      // we don't want page registration to be protected -> adding exception 
+   @Override
+public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/register");
+    
+ 
+}
 }
