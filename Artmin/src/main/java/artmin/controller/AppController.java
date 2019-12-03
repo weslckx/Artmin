@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 import artmin.model.User;
 import artmin.service.UserService;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/")
@@ -29,7 +32,12 @@ public class AppController {
     MessageSource messageSource;
 
     @RequestMapping(value={"/"})
-    public String showIndex(){
+    public String index(Model model){
+        
+        SecurityContext context = SecurityContextHolder.getContext();
+        model.addAttribute("message","You are logged in as " +
+                context.getAuthentication().getName());
+        
         return "index";
     }
     

@@ -1,26 +1,17 @@
-<%@page contentType="text/html" pageEncoding="windows-1252"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+  pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<!DOCTYPE html >
 <html>
-<head></head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ARTMIN.COM</title>
+</head>
 <body>
-   <h1>Login</h1>
-   <form name='f' action="login" method='POST'>
-      <table>
-         <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-         </tr>
-         <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-         </tr>
-         <tr>
-            <td><input name="submit" type="submit" value="submit" /></td>
-         </tr>
-         <tr>
-             <td><a href="/new">New user? Register here!</a></td>
-         </tr>
-      </table>
-  </form>
+  <h2>Logged in</h2>
+  <hr />
+  <h4>${message}</h4>
+  <br>
+  <a href='<spring:url value="/signout"/>'>Logout</a>
 </body>
 </html>
