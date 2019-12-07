@@ -25,16 +25,17 @@
             <td></td>
             <td></td>
         </tr>
+        
         <c:forEach items="${users}" var="user">
             <tr>
             <td>${user.id}</td>
             <td>${user.username}</td>
-            <td><a href="<c:url value='/edit-${user.id}-user' />">edit</a></td>
-            <td><a href="<c:url value='/delete-${user.id}-user' />">delete</a></td>
+            <td><a href="<c:url value='/demo/edit-${user.id}-user' />">edit</a></td>
+            <td><a href="<c:url value='/demo/delete-${user.id}-user' />">delete</a></td>
             </tr>
         </c:forEach>
     </table>
     <br/>
-    <a href="<c:url value='/new' />">Add New User</a>
+    <a href="<c:url value='/demo/new' />">Add New User</a>
 </body>
 </html>

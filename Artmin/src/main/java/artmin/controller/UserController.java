@@ -15,25 +15,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import artmin.model.DemoUser;
-import artmin.service.UserService;
-
 @Controller
-@RequestMapping("/")
-public class AppController {
+@RequestMapping("/artmin")
+public class UserController {
 
-    @Autowired
-    UserService userService;
+    @RequestMapping(value = {"", "/login"}, method = RequestMethod.GET)
+    public String loginUser(ModelMap model) {
 
-    @Autowired
-    MessageSource messageSource;
+        // verzamelen gegevens voor het login venster
+        return "login"; // JSP Pagina pointer
+    }
 
-    /*
-     * This method will list all existing users.
-     */
-    // *FROM* Route aangeven, deze methode wordt aangesporken als er geen route wordt eengegeven "/" of als de de route "/list" wordt gegeven in de URL
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
-        return "index"; // JSP Pagina pointer
+    @RequestMapping(value = {"/registratie"}, method = RequestMethod.GET)
+    public String addUser(ModelMap model) {
+
+        // verzamelen gegevens voor het login venster
+        return "registratie"; // JSP Pagina pointer
     }
 }
