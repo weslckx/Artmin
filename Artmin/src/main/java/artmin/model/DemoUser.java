@@ -1,5 +1,6 @@
 package artmin.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  
 @Entity
 @Table(name="usertest")
-public class User {
+public class DemoUser {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,9 +78,9 @@ public class User {
             return true;
         if (obj == null)
             return false;
-        if (!(obj instanceof User))
+        if (!(obj instanceof DemoUser))
             return false;
-        User other = (User) obj;
+        DemoUser other = (DemoUser) obj;
         if (id != other.getId())
             return false;
         return true;

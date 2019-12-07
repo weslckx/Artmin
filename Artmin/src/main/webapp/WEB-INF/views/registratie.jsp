@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 7-dec-2019, 11:18:00
+    Document   : registratie
+    Created on : 7-dec-2019, 10:41:25
     Author     : work
 --%>
 
@@ -12,9 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Develop Home</h1>
-            <a href="demo">Ga naar demo applicatie</a>
-            <br><br>
-            <a href="artmin" />Ga naar Artmin</a>
+        <h1>Registreren van gebruiker</h1>
     </body>
 </html>

@@ -6,16 +6,19 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
- 
-import artmin.model.User;
+
+
+import artmin.model.DemoUser;
+
+// implements UserDao
 
 @Repository("userDao")
-public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
-    public User findById(int id) {
+public class DemoUserDao extends AbstractDao<Integer, DemoUser>  {
+    public DemoUser findById(int id) {
         return getByKey(id);
     }
  
-    public void saveUser(User user) {
+    public void saveUser(DemoUser user) {
         persist(user);
     }
 
@@ -26,8 +29,8 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     }
     
     @SuppressWarnings("unchecked")
-    public List<User> findAllUsers() {
+    public List<DemoUser> findAllUsers() {
         Criteria criteria = createEntityCriteria();
-        return (List<User>) criteria.list();
+        return (List<DemoUser>) criteria.list();
     }
 }
