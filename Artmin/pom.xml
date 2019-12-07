@@ -12,7 +12,7 @@
     <properties>
         <springframework.version>4.3.25.RELEASE</springframework.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
-        <mysql.version>8.0.18</mysql.version>
+        <mysql.version>8.0.18</mysql.version> 
         <joda-time.version>2.3</joda-time.version>
         <testng.version>6.9.4</testng.version>
         <mockito.version>1.10.19</mockito.version>
@@ -148,7 +148,7 @@
                     <version>2.4</version>
                     <configuration>
                         <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                        <warName>SpringMVCOef2</warName>
+                        <warName>Artmin</warName>
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
