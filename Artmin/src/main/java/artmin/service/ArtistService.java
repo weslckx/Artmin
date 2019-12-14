@@ -15,38 +15,34 @@ public class ArtistService{
     @Autowired
     private ArtistDao dao;
      
-//    // zoeken van gebruiker op basis van ID
-//    public DemoArtist findById(int id) {
-//        return dao.findById(id);
-//    }
-// 
-//    // Bewaren van gebruiker
-//    public void saveArtist(DemoArtist artist) {
-//        dao.saveArtist(artist);
-//    }
-// 
-//    // bijwerken van bestaande gebruiker
-//    public void updateArtist(DemoArtist artist) {
-//        DemoArtist entity = dao.findById(artist.getId());
-//        if(entity!=null){
-//            entity.setArtistname(artist.getArtistname());
-//            entity.setPassword(artist.getPassword());
-//            entity.setConfirmPassword(artist.getConfirmPassword());
-//        }
-//    }
-// 
-//    // verwijderen van gebruiker
-//    public void deleteArtistById(int id) {
-//        dao.deleteArtistById(id);
-//    }
+    // zoeken van gebruiker op basis van ID
+    public Artist findById(int id) {
+        return dao.findById(id);
+    }
+ 
+    // Bewaren van gebruiker
+    public void saveArtist(Artist artist) {
+        dao.saveArtist(artist);
+    }
+ 
+    // bijwerken van bestaande gebruiker
+    public void updateArtist(Artist artist) {
+        Artist entity = dao.findById(artist.getId());
+        if(entity!=null){
+            entity.setName(artist.getName());
+            entity.setDescription(artist.getDescription());
+            entity.setLogoUrl(artist.getLogoUrl());
+        }
+    }
+ 
+    // verwijderen van gebruiker
+    public void deleteArtistById(long id) {
+        dao.deleteArtistById(id);
+    }
      
     // zoeken van alle gebruikers
     public List<Artist> findAllArtists() {
         return dao.findAllArtists();
     }
-// 
-// // controleer of paswoord gelijk is
-//    public boolean arePasswordsEqual(String password, String confirmPassword) {
-//        return (password.equals(confirmPassword));
-//    }
+
 }

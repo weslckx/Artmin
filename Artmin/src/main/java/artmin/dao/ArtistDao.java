@@ -13,15 +13,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository("artistDao")
 public class ArtistDao extends AbstractDao<Long, Artist> {
-    public Artist findByid(long id){
+    public Artist findById(long id){
         return getByKey(id);
     }
     
-    public void saveUser(Artist artist) {
+    public void saveArtist(Artist artist) {
         persist(artist);
     }
 
-    public void deleteUserById(Long id) {
+    public void deleteArtistById(Long id) {
         Query query = getSession().createSQLQuery("delete from artist where id = :id");
         query.setLong("id", id);
         query.executeUpdate();
