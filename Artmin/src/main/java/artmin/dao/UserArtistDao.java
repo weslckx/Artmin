@@ -8,7 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-@Repository("userArtistDao")
+//@Repository("UserArtistDao")
 public class UserArtistDao extends AbstractDao {
         
     public void saveUserArtist(UserArtist userArtist) {

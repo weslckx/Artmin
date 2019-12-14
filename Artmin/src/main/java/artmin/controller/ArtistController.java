@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,17 +33,39 @@ public class ArtistController {
         Artist artist = new Artist();
         model.addAttribute("artist", artist);
         model.addAttribute("edit", false);
-        return ""; //view r-team
+        return "artistregistration"; //view r-team
     }
     
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
-    public String newArtist(BindingResult result, ModelMap model) {
-        Artist artist = new Artist();
-        model.addAttribute("artist", artist);
-        model.addAttribute("edit", false);
-        return ""; //view r-team
+    public String saveArtist(Artist artist, BindingResult result, ModelMap model) {
+        artistService.saveArtist(artist);
+                
+        model.addAttribute("success", "Artist " + artist.getName() + " registered successfully");
+        return "success"; //view r-team
     }
     
+    @RequestMapping(value = {"/edit-{id}-artist"}, method = RequestMethod.GET)
+    public String editArtist(@PathVariable int id, ModelMap model){
+        Artist artist = artistService.findById(id);
+        model.addAttribute("artist", artist);
+        model.addAttribute("edit", true);
+        return "artistregistration";
+    }
+    
+    @RequestMapping(value = {"/edit-{id}-artist"}, method = RequestMethod.POST)
+    public String updateArtist(Artist artist, BindingResult result, ModelMap model, @PathVariable int id){
+        
+        artistService.updateArtist(artist);
+        
+        model.addAttribute("success", "Artist " + artist.getName() + " registered successfully");
+        return "success";
+    }
+    
+    @RequestMapping(value = {"/delete-{id}-artist"}, method=RequestMethod.GET)
+    public String deleteArtist(@PathVariable int id){
+        artistService.deleteArtistById(id);
+        return "success";
+    }
     
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String listArtist(ModelMap model) {
