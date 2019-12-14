@@ -9,11 +9,9 @@ import artmin.model.Artist;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author r0798566
- */
+@Repository("artistDao")
 public class ArtistDao extends AbstractDao<Long, Artist> {
     public Artist findByid(long id){
         return getByKey(id);
