@@ -56,6 +56,11 @@
                     </c:choose>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    ${message}
+                </td>
+            </tr>
         </table>
     </form:form>
     <br/>

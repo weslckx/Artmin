@@ -38,8 +38,24 @@ public class ArtistController {
     
     @RequestMapping(value = {"/new"}, method = RequestMethod.POST)
     public String saveArtist(Artist artist, BindingResult result, ModelMap model) {
+        
+        //First check if user already excists
+        List<Artist> lstArtists = artistService.findAllArtists();
+        
+        for( Artist artists : lstArtists){
+            String artistOutOfList = artists.getName();
+            String artistNewinList = artist.getName();
+             //&& artists.getDescription() == artist.getDescription() 
+            if (artistOutOfList.equals(artistNewinList)){
+                model.addAttribute("message", "Artist already excists");
+                return "artistregistration";
+            }
+        }
+        
+        //Save user to DB
         artistService.saveArtist(artist);
-                
+        
+        //Redirect user to success page
         model.addAttribute("success", "Artist " + artist.getName() + " registered successfully");
         return "success"; //view r-team
     }

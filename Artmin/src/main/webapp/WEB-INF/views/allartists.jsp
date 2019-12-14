@@ -17,7 +17,7 @@
  
 <body>
     
-    <h2>List of Employees</h2>  
+    <h2>List of Artists</h2>  
     <table>
         <tr>
             <td>ID</td>
