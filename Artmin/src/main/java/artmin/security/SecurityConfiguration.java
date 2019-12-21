@@ -39,11 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/artmin*", "/list")
                 .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
                 .antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-                .access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/artmin/showLogin")
+                .access("hasRole('ADMIN') or hasRole('DBA')").and().formLogin().loginPage("/login/showLogin")
                 .loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password").and()
                 .rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
                 .tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
-        http.authorizeRequests().antMatchers("/index", "/artmin/registratie").permitAll();
+        http.authorizeRequests().antMatchers("/index", "/login/newuser", "login/registrationsuccess", "registrationsuccess").permitAll();
     }
 
     @Bean

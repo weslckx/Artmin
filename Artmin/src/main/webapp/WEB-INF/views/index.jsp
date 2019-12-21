@@ -17,6 +17,6 @@
             <br><br>
             <a href="artmin" />Ga naar Artmin</a>
             <br><br>
-            <a href="artmin/registratie" />Nieuwe user? Registreer hier!</a>
+            <a href="login/newuser" />Nieuwe user? Registreer hier!</a>
     </body>
 </html>

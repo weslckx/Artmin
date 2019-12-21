@@ -55,6 +55,15 @@ public class LoginController {
     /**
      * This method will list all existing users.
      */
+    
+      @RequestMapping(value = {"/showLogin"}, method = RequestMethod.GET)
+    public String loginUser(ModelMap model) {
+
+        // verzamelen gegevens voor het login venster
+        return "login"; // JSP Pagina pointer
+    }
+    
+    
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
 
@@ -64,51 +73,51 @@ public class LoginController {
         return "userslist";
     }
 
-//    /**
-//     * This method will provide the medium to add a new user.
-//     */
-//    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
-//    public String newUser(ModelMap model) {
-//        AppUser user = new AppUser();
-//        model.addAttribute("user", user);
-//        model.addAttribute("edit", false);
-//        model.addAttribute("loggedinuser", getPrincipal());
-//        return "registration";
-//    }
-//
-//    /**
-//     * This method will be called on form submission, handling POST request for
-//     * saving user in database. It also validates the user input
-//     */
-//    @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
-//    public String saveUser(@Valid AppUser user, BindingResult result,
-//            ModelMap model) {
-//
-//        if (result.hasErrors()) {
-//            return "registration";
-//        }
-//
-//        /*
-//         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation
-//         * and applying it on field [sso] of Model class [User].
-//         *
-//         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-//         * framework as well while still using internationalized messages.
-//         *
-//         */
+    /**
+     * This method will provide the medium to add a new user.
+     */
+    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
+    public String newUser(ModelMap model) {
+        AppUser user = new AppUser();
+        model.addAttribute("user", user);
+        model.addAttribute("edit", false);
+        //model.addAttribute("loggedinuser", getPrincipal());
+        return "registration";
+    }
+
+    /**
+     * This method will be called on form submission, handling POST request for
+     * saving user in database. It also validates the user input
+     */
+    @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
+    public String saveUser(@Valid @ModelAttribute("user") AppUser user, BindingResult result,
+            ModelMap model) {
+
+        if (result.hasErrors()) {
+            return "registration";
+        }
+
+        /*
+         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation
+         * and applying it on field [sso] of Model class [User].
+         *
+         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+         * framework as well while still using internationalized messages.
+         *
+         */
 //        if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
 //            FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
 //            result.addError(ssoError);
 //            return "registration";
 //        }
-//
-//        userService.saveUser(user);
-//
-//        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+
+        userService.saveUser(user);
+
+        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 //        model.addAttribute("loggedinuser", getPrincipal());
-//        //return "success";
-//        return "registrationsuccess";
-//    }
+        //return "success";
+        return "registrationsuccess";
+    }
 
 
     /**

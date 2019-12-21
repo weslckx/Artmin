@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/artmin")
 public class UserController {
 
-    @RequestMapping(value = {"/showLogin"}, method = RequestMethod.GET)
-    public String loginUser(ModelMap model) {
-
-        // verzamelen gegevens voor het login venster
-        return "login"; // JSP Pagina pointer
-    }
+//    @RequestMapping(value = {"/showLogin"}, method = RequestMethod.GET)
+//    public String loginUser(ModelMap model) {
+//
+//        // verzamelen gegevens voor het login venster
+//        return "login"; // JSP Pagina pointer
+//    }
     
-    @RequestMapping(value = {"/registratie"}, method = RequestMethod.GET)
-    public String addUser(ModelMap model) {
-
-        // verzamelen gegevens voor het login venster
-        return "registration"; // JSP Pagina pointer
-    }
+//    @RequestMapping(value = {"/registratie"}, method = RequestMethod.GET)
+//    public String addUser(ModelMap model) {
+//
+//        // verzamelen gegevens voor het login venster
+//        return "registration"; // JSP Pagina pointer
+//    }
     
     
     
