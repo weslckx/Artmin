@@ -30,6 +30,7 @@ import artmin.model.AppUser;
 import artmin.model.UserProfile;
 import artmin.service.UserProfileService;
 import artmin.service.AppUserService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping("/login")
@@ -63,51 +64,51 @@ public class LoginController {
         return "userslist";
     }
 
-    /**
-     * This method will provide the medium to add a new user.
-     */
-    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
-    public String newUser(ModelMap model) {
-        AppUser user = new AppUser();
-        model.addAttribute("user", user);
-        model.addAttribute("edit", false);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "registration";
-    }
-
-    /**
-     * This method will be called on form submission, handling POST request for
-     * saving user in database. It also validates the user input
-     */
-    @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
-    public String saveUser(@Valid AppUser user, BindingResult result,
-            ModelMap model) {
-
-        if (result.hasErrors()) {
-            return "registration";
-        }
-
-        /*
-         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation
-         * and applying it on field [sso] of Model class [User].
-         *
-         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
-         * framework as well while still using internationalized messages.
-         *
-         */
-        if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
-            FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
-            result.addError(ssoError);
-            return "registration";
-        }
-
-        userService.saveUser(user);
-
-        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
-        model.addAttribute("loggedinuser", getPrincipal());
-        //return "success";
-        return "registrationsuccess";
-    }
+//    /**
+//     * This method will provide the medium to add a new user.
+//     */
+//    @RequestMapping(value = { "/newuser" }, method = RequestMethod.GET)
+//    public String newUser(ModelMap model) {
+//        AppUser user = new AppUser();
+//        model.addAttribute("user", user);
+//        model.addAttribute("edit", false);
+//        model.addAttribute("loggedinuser", getPrincipal());
+//        return "registration";
+//    }
+//
+//    /**
+//     * This method will be called on form submission, handling POST request for
+//     * saving user in database. It also validates the user input
+//     */
+//    @RequestMapping(value = { "/newuser" }, method = RequestMethod.POST)
+//    public String saveUser(@Valid AppUser user, BindingResult result,
+//            ModelMap model) {
+//
+//        if (result.hasErrors()) {
+//            return "registration";
+//        }
+//
+//        /*
+//         * Preferred way to achieve uniqueness of field [sso] should be implementing custom @Unique annotation
+//         * and applying it on field [sso] of Model class [User].
+//         *
+//         * Below mentioned peace of code [if block] is to demonstrate that you can fill custom errors outside the validation
+//         * framework as well while still using internationalized messages.
+//         *
+//         */
+//        if(!userService.isUserSSOUnique(user.getId(), user.getSsoId())){
+//            FieldError ssoError =new FieldError("user","ssoId",messageSource.getMessage("non.unique.ssoId", new String[]{user.getSsoId()}, Locale.getDefault()));
+//            result.addError(ssoError);
+//            return "registration";
+//        }
+//
+//        userService.saveUser(user);
+//
+//        model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
+//        model.addAttribute("loggedinuser", getPrincipal());
+//        //return "success";
+//        return "registrationsuccess";
+//    }
 
 
     /**
