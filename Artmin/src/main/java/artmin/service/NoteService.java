@@ -25,7 +25,7 @@ public class NoteService {
     private NoteDao dao;
      
     // zoeken van note op basis van ID
-    public Note findById(int id) {
+    public Note findById(Long id) {
         return dao.findById(id);
     }
  
@@ -46,7 +46,7 @@ public class NoteService {
     }
  
     // verwijderen van note
-    public void deleteNoteById(long id) {
+    public void deleteNoteById(Long id) {
         dao.deleteNoteById(id);
     }
      

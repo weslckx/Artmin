@@ -28,12 +28,16 @@ public class AppController {
     @Autowired
     MessageSource messageSource;
 
+    @Autowired
+    ArtistController artistController;
+
     /*
      * This method will list all existing users.
      */
     // *FROM* Route aangeven, deze methode wordt aangesporken als er geen route wordt eengegeven "/" of als de de route "/list" wordt gegeven in de URL
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String listUsers(ModelMap model) {
-        return "index"; // JSP Pagina pointer
+
+        return artistController.listArtist(model); // JSP Pagina pointer
     }
 }

@@ -24,7 +24,7 @@ public class EventTypeService {
     private EventTypeDao dao;
      
     // zoeken van eventType op basis van ID
-    public EventType findById(int id) {
+    public EventType findById(Long id) {
         return dao.findById(id);
     }
  
@@ -43,7 +43,7 @@ public class EventTypeService {
     }
  
     // verwijderen van eventType
-    public void deleteEventTypeById(long id) {
+    public void deleteEventTypeById(Long id) {
         dao.deleteEventTypeById(id);
     }
      

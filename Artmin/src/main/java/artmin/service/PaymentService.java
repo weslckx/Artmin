@@ -25,7 +25,7 @@ public class PaymentService {
     private PaymentDao dao;
      
     // zoeken van payment op basis van ID
-    public Payment findById(int id) {
+    public Payment findById(Long id) {
         return dao.findById(id);
     }
  
@@ -48,7 +48,7 @@ public class PaymentService {
     }
  
     // verwijderen van payment
-    public void deletePaymentById(long id) {
+    public void deletePaymentById(Long id) {
         dao.deletePaymentById(id);
     }
      

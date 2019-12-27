@@ -24,7 +24,7 @@ public class EventLocationService {
     private EventLocationDao dao;
      
     // zoeken van eventLocation op basis van ID
-    public EventLocation findById(int id) {
+    public EventLocation findById(Long id) {
         return dao.findById(id);
     }
  
@@ -54,7 +54,7 @@ public class EventLocationService {
     }
  
     // verwijderen van eventLocation
-    public void deleteEventLocationById(long id) {
+    public void deleteEventLocationById(Long id) {
         dao.deleteEventLocationById(id);
     }
      

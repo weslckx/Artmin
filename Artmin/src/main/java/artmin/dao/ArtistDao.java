@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("artistDao")
 public class ArtistDao extends AbstractDao<Long, Artist> {
-    public Artist findById(long id){
+    public Artist findById(Long id){
         return getByKey(id);
     }
     
@@ -22,7 +22,7 @@ public class ArtistDao extends AbstractDao<Long, Artist> {
     }
 
     public void deleteArtistById(Long id) {
-        Query query = getSession().createSQLQuery("delete from artist where id = :id");
+        Query query = getSession().createSQLQuery("delete from Artists where id = :id");
         query.setLong("id", id);
         query.executeUpdate();
     }
@@ -30,6 +30,7 @@ public class ArtistDao extends AbstractDao<Long, Artist> {
     @SuppressWarnings("unchecked")
     public List<Artist> findAllArtists() {
         Criteria criteria = createEntityCriteria();
+
         return (List<Artist>) criteria.list();
     }
 }

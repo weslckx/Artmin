@@ -25,7 +25,7 @@ public class TodoService {
     private TodoDao dao;
      
     // zoeken van todo op basis van ID
-    public Todo findById(int id) {
+    public Todo findById(Long id) {
         return dao.findById(id);
     }
  
@@ -48,7 +48,7 @@ public class TodoService {
     }
  
     // verwijderen van todo
-    public void deleteTodoById(long id) {
+    public void deleteTodoById(Long id) {
         dao.deleteTodoById(id);
     }
      

@@ -23,7 +23,7 @@ public class CompanyService {
     private CompanyDao dao;
     
     // zoeken van company op basis van ID
-    public Company findById(int id) {
+    public Company findById(Long id) {
         return dao.findById(id);
     }
  
@@ -56,7 +56,7 @@ public class CompanyService {
     }
  
     // verwijderen van company
-    public void deleteCompanyById(long id) {
+    public void deleteCompanyById(Long id) {
         dao.deleteCompanyById(id);
     }
      
