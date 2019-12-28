@@ -53,7 +53,7 @@ public class TodoService {
     }
      
     // zoeken van alle todos
-    public List<Todo> findAllTodos() {
-        return dao.findAllTodos();
+    public List<Todo> findAllTodos(Long eventID) {
+        return dao.findAllTodos(eventID);
     }
 }

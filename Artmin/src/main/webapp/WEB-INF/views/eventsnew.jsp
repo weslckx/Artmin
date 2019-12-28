@@ -10,39 +10,39 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
         <style>
-            tr:first-child{
-                font-weight: bold;
-                background-color: #C6C9C4;
-            }
 
-            #btn-danger {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                cursor: pointer;
-                float: right;
-            }
 
         </style>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="<c:url value='/' />">Artmin</a>
+    <nav class="navbar navbar-dark bg-dark d-block">
+        <div class="container d-block">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="text-left">
+                        <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
+                    </div>
+                </div>      
 
-        <h1 class="text-white">new EVENT</h1>     
+                <div class="col d-block">
+                    <h1 align="center"  class="text-white">new EVENT</h1>
+                </div>
 
-        <a href="<c:url value='/events/new-${hotartist.id}'/>"> <button class="btn btn-secondary my-2 my-sm-0">New</button></a>    
+                <div class="col align-self-center">
+                    <div class="text-right">
+                        <a href="<c:url value='/events/new-${hotartist.id}'/>">
+                            <button class="btn btn-secondary align-content-center">New</button>
+                        </a>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">   
+                <div class="col">
+                    <h6 align="center" class="text-white">DEMO USER NAAM //  ${hotartist.name}</h6>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <div class="bg-dark">
-        <div class="row justify-content-center">
-            <h6 class="text-white">DEMO USER NAAM //  ${hotartist.name}</h6>
-        </div>
-    </div>
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
@@ -63,7 +63,7 @@
 
                 <form:form method="POST" modelAttribute="event">
                     <form:input type="hidden" path="id" id="id"/>
-                     <form:input type="hidden" path="artistID" id="artistID" value="${hotartist.id}"/>
+                    <form:input type="hidden" path="artistID" id="artistID" value="${hotartist.id}"/>
                     <fieldset>    
 
                         <!--EVENT NAME-->

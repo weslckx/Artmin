@@ -30,15 +30,30 @@
 
         </style>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="<c:url value='/' />">Artmin</a>
+                <nav class="navbar navbar-dark bg-dark d-block">
+            <div class="container d-block">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <div class="text-left">
+                            <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
+                        </div>
+                    </div>      
 
-        <h1 class="text-white">new ARTIST</h1>     
+                    <div class="col d-block">
+                        <h1 align="center"  class="text-white">new ARTIST</h1>
+                    </div>
 
-        <a href="<c:url value='/events/new'/>"> <button class="btn btn-secondary my-2 my-sm-0">New</button></a>    
-
-
-    </nav>
+                    <div class="col align-self-center">
+                        <div class="text-right">
+                            <a href="<c:url value='/artists/new'/>">
+                                <button class="btn btn-secondary align-content-center">New</button>
+                            </a>  
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </nav>
+       
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>

@@ -8,40 +8,45 @@
         <title>Events</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
-        <style>
-            tr:first-child{
-                font-weight: bold;
-                background-color: #C6C9C4;
-            }
 
-            #btn-danger {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                cursor: pointer;
-                float: right;
+
+
+        <style>
+            .glyphicon {
+                font-size: 30px;
             }
 
         </style>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="<c:url value='/' />">Artmin</a>
+    <nav class="navbar navbar-dark bg-dark d-block">
+        <div class="container d-block">
+            <div class="row">
+                <div class="col align-self-center">
+                    <div class="text-left">
+                        <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
+                    </div>
+                </div>      
 
-        <h1 class="text-white">EVENTS</h1>
+                <div class="col d-block">
+                    <h1 align="center"  class="text-white">EVENTS</h1>
+                </div>
 
-        <a href="<c:url value='/events/new-${hotartist.id}'/>"> <button class="btn btn-secondary my-2 my-sm-0">New</button></a>       
+                <div class="col align-self-center">
+                    <div class="text-right">
+                        <a href="<c:url value='/events/new-${hotartist.id}'/>">
+                            <button class="btn btn-secondary align-content-center">New</button>
+                        </a>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">   
+                <div class="col">
+                    <h6 align="center" class="text-white">DEMO USER NAAM //  ${hotartist.name}</h6>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <div class="bg-dark">
-        <div class="row justify-content-center">
-            <h6 class="text-white">DEMO USER NAAM //  ${hotartist.name}</h6>
-        </div>
-    </div>
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
@@ -50,58 +55,66 @@
     </ol>
 </head>
 
-<body>    
-    <div class="container">
-        <div class="row">
-            <div class="col-">
+<body>   
+    <div class="container-fluid">
+        <div class="row ">  
+            <div class="col-sm d-none d-xl-block">
+
             </div>
 
-            <div class="col-lg">
+            <div class="col">
                 <c:forEach items="${events}" var="event">
 
                     <!--Weergave van één event  -->
                     <!--Weergave van één event  -->
                     <!--Weergave van één event  -->
+                    <div class="modal-content shadow">
 
+                        <div onclick="location.href = '<c:url value='/events/detail-${event.id}-${hotartist.id}'/>';" style="cursor: pointer;">
 
-                    <div class="card bg-light mb-3">
-                        <A href="<c:url value='/artist'/>">
-                            <div class="card-header">
-                                <h1><c:out value="${event.name}"/></h1>                         
-                                <h6><c:out value="${event.eventType.name}"/></h6>  
+                            <div>
+
+                                <div class="text-center">
+                                    <h1 ><c:out value="${event.name}"/></h1>   
+                                    <h6 ><c:out value="${event.eventType.name}"/></h6>  
+                                    <div><h1><span class="badge badge-pill ${event.statusColor}">${event.statusText}</span></h1></div>                                
+                                </div> 
                             </div>
 
-                            <div class="card-body">
+                                <hr>
+                                
+                            <div class="modal-body">
                                 <h5><fmt:formatDate value="${event.dateCalendar}" type="date" pattern="dd-MMM-yyyy"/>
                                     //
                                     <fmt:formatDate value="${event.dateActStart}" type="date" pattern="HH:mm"/>
                                     - 
                                     <fmt:formatDate value="${event.dateActEnd}" type="date" pattern="HH:mm"/></h5>
-
-                                <span class="badge badge-pill ${event.statusColor}">${event.statusText}</span>
-
                             </div>
-                        </A>
 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <a href="<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>"><button type="button" class="btn btn-danger">DELETE</button> </a></td>
+                        </div>
 
-                                </div>
-                                <div class="col-sm">
-                                    <a href="<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>"><button type="button" class="btn btn-warning">EDIT</button></a></td>
+                        <div class="modal-footer">
+                            <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="close mr-auto" data-dismiss="modal">
+                                <button type="button" class="btn btn-danger">Delete</button>         
+                            </button>
 
-                                </div>                          
-                            </div>
+                            <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="close" data-dismiss="modal">
+                                <button type="button" class="btn btn-warning">Edit</button>
+                            </button>  
                         </div>
                     </div>
+
+                    <hr>
+
                 </c:forEach>
+            </div>
+
+            <div class="col d-none d-xl-block">
+
             </div>
         </div>
     </div>
-    <div class="col-">              
-    </div>
+
 </div>
 </div>
 

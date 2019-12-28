@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Repository("eventLocationDao")
 public class EventLocationDao extends AbstractDao<Long, EventLocation>{
     
-    public EventLocation findById(long id){
+    public EventLocation findById(Long id){
         return getByKey(id);
     }
     
@@ -27,7 +27,7 @@ public class EventLocationDao extends AbstractDao<Long, EventLocation>{
     }
 
     public void deleteEventLocationById(Long id) {
-        Query query = getSession().createSQLQuery("delete from eventLocation where id = :id");
+        Query query = getSession().createSQLQuery("delete from EventLocations where id = :id");
         query.setLong("id", id);
         query.executeUpdate();
     }

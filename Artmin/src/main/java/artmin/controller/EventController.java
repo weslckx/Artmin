@@ -1,4 +1,4 @@
-// Bram Sommen
+// Bram 0Som
 // Created: 21/12/2019
 package artmin.controller;
 
@@ -56,6 +56,19 @@ public class EventController {
         return "eventsall"; // JSP Pagina pointer
     }
 
+    @RequestMapping(value = {"/detail-{eventID}-{artistID}"}, method = RequestMethod.GET)
+    public String eventDetail(@PathVariable Long eventID, @PathVariable Long artistID, ModelMap model) {
+        // Haal alle events met filter: artist ID 
+        Event evt = eventService.findById(eventID); // ophalen gegevens uit database
+        model.addAttribute("event", evt); //Attribute aan "pagina" model toevoegen naam: users, data= List<Users> met naam lstUsers
+
+        // Artist Info Meenemen in venster
+        Artist artist = artistService.findById(artistID);
+        model.addAttribute("hotartist", artist);
+
+        return "eventdetail"; // JSP Pagina pointer
+    }
+
     // NEW EVENT
     // NEW EVENT
     // NEW EVENT
@@ -69,7 +82,7 @@ public class EventController {
         // Artist Info Meenemen in venster
         Artist artist = artistService.findById(artistID);
         model.addAttribute("hotartist", artist);
-        
+
         // List Of Event Types
         List<EventType> lstEventTypes = eventTypeService.findAllEventTypes();
         model.addAttribute("eventtypes", lstEventTypes); //Attribute aan "pagina" model toevoegen
@@ -88,8 +101,6 @@ public class EventController {
         // Ophalen van artiest object
         event.setArtist(artistService.findById(event.getArtistID()));
 
-      //  event.setClientID(Long.valueOf(2));
-
         //Save user to DB
         eventService.saveEvent(event);
 
@@ -104,7 +115,6 @@ public class EventController {
     //DELETE - EVENT
     //DELETE - EVENT
     @RequestMapping(value = {"/delete-{id}-event-{artistID}"}, method = RequestMethod.GET)
-
     public String deleteEvent(@PathVariable Long id, @PathVariable Long artistID, ModelMap model) {
         eventService.deleteEventById(id);
 

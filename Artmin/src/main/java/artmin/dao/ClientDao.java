@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("clientDao")
 public class ClientDao extends AbstractDao<Long, Client>{
-    public Client findById(long id){
+    public Client findById(Long id){
         return getByKey(id);
     }
     

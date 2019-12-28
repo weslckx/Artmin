@@ -55,6 +55,15 @@ public class Event implements Serializable {
     @JoinColumn(name = "EventTypeID") // Object link naar Database ID
     private EventType eventType;
 
+    @Transient
+    private int aantalNotes;
+
+    @Transient
+    private int aantalTodo;
+
+    @Transient
+    private int aantalTodoAck;
+
     @Column(name = "todoAck", nullable = true)
     private boolean todoAck;
 
@@ -145,6 +154,14 @@ public class Event implements Serializable {
         this.statusColor = statusColor;
     }
 
+    public int getAantalNotes() {
+        return aantalNotes;
+    }
+
+    public void setAantalNotes(int aantalNotes) {
+        this.aantalNotes = aantalNotes;
+    }
+
     public Long getArtistID() {
         return artistID;
     }
@@ -187,6 +204,22 @@ public class Event implements Serializable {
 
     public boolean isTodoAck() {
         return todoAck;
+    }
+
+    public int getAantalTodo() {
+        return aantalTodo;
+    }
+
+    public void setAantalTodo(int aantalTodo) {
+        this.aantalTodo = aantalTodo;
+    }
+
+    public int getAantalTodoAck() {
+        return aantalTodoAck;
+    }
+
+    public void setAantalTodoAck(int aantalTodoAck) {
+        this.aantalTodoAck = aantalTodoAck;
     }
 
     public void setTodoAck(boolean todoAck) {

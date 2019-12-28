@@ -5,10 +5,18 @@
  */
 package artmin.service;
 
+import artmin.dao.ClientDao;
 import artmin.dao.EventDao;
+import artmin.dao.EventLocationDao;
 import artmin.dao.EventTypeDao;
+import artmin.dao.NoteDao;
+import artmin.dao.TodoDao;
+import artmin.model.Client;
 import artmin.model.Event;
+import artmin.model.EventLocation;
 import artmin.model.EventType;
+import artmin.model.Note;
+import artmin.model.Todo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -35,9 +43,29 @@ public class EventService {
     @Autowired
     private EventTypeDao eventDao;
 
+    @Autowired
+    private NoteDao noteDao;
+
+    @Autowired
+    private TodoDao todoDao;
+
+    @Autowired
+    private EventLocationDao eventLocationDao;
+
+    @Autowired
+    private ClientDao clientDao;
+
     // zoeken van event op basis van ID
     public Event findById(Long id) {
-        return dao.findById(id);
+
+        // Ophalen van event uit database
+        Event evt = dao.findById(id);
+
+        // Aanvullen van event objects
+        FillEvent(evt);
+
+        // Return compleet event
+        return evt;
     }
 
     // Bewaren van event
@@ -93,7 +121,32 @@ public class EventService {
         EventType eventType = eventDao.findById(evt.getEventTypeID()); // Ophalen van eventType
         evt.setEventType(eventType); // Voeg Event Type toe aan lijst gegeven 
 
+        // Status kleur en prioriteiten text invullen
         evt.statusSwitch();
+
+        // Aantal onderliggende notities ophalen
+        List<Note> notes = noteDao.findAllNotes(evt.getId());
+        evt.setAantalNotes(notes.size());
+
+        // Aantal ALLE onderliggende notities ophalen
+        List<Todo> todos = todoDao.findAllTodos(evt.getId());
+        evt.setAantalTodo(todos.size());
+
+        // aantal complete onderlggende todo's ophalen
+        List<Todo> todosAck = todoDao.findAllTodosAck(evt.getId());
+        evt.setAantalTodoAck(todosAck.size());
+
+        // Event locatie ophalen
+        if (evt.getLocationID() > 0) {
+            EventLocation eventLocation = eventLocationDao.findById(evt.getLocationID());
+            evt.setLocations(eventLocation);
+        } 
+
+        // Klantgegevens ophalen
+        if (evt.getClientID() > 0) {
+            Client client = clientDao.findById(evt.getClientID());
+            evt.setClients(client);
+        }
 
     }
 }

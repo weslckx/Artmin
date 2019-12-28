@@ -9,83 +9,88 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
         <style>
-            tr:first-child{
-                font-weight: bold;
-                background-color: #C6C9C4;
-            }
 
-            #btn-danger {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                cursor: pointer;
-                float: right;
-            }
-
-        </style>
-
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="<c:url value='/' />">Artmin</a>
-
-        <h1 class="text-white">ARTISTS</h1>
-
-        <a href="<c:url value='/artists/new'/>"> <button class="btn btn-secondary my-2 my-sm-0">New</button></a>       
-
-    </nav>
-
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
-        <li class="breadcrumb-item active">Artists</li>
-    </ol>
-</head>
+            .glyphicon {
+                font-size: 30px;
 
 
-<body>  
-    <div class="container">
-        <div class="row">
-            <div class="col-">
-            </div>
+            </style>
 
-            <div class="col-lg">
-                <c:forEach items="${artists}" var="artist">
+        <nav class="navbar navbar-dark bg-dark d-block">
+            <div class="container d-block">
+                <div class="row">
+                    <div class="col align-self-center">
+                        <div class="text-left">
+                            <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
+                        </div>
+                    </div>      
 
-                    <!--Weergave van één artist  -->
-                    <!--Weergave van één artist  -->
-                    <!--Weergave van één artist  -->
+                    <div class="col d-block">
+                        <h1 align="center"  class="text-white">ARTISTS</h1>
+                    </div>
 
-                    <div class="card bg-light mb-3">
-                        <A href="<c:url value='/events//opn-events-${artist.id}'/>">
-                            <div class="card-header">
-                                <h1><c:out value="${artist.name}"/></h1>   
-                                <h6><c:out value="${artist.description}"/></h6>  
-                            </div>
-                        </A>
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <a href="<c:url value='/artists/delete-${artist.id}-artist'/>"><button type="button" class="btn btn-danger">DELETE</button> </a></td>
-
-                                </div>
-                                <div class="col-sm">
-                                    <a href="<c:url value='/artists/edit-${artist.id}-artist'/>"><button type="button" class="btn btn-warning">EDIT</button></a></td>
-
-                                </div>                          
-                            </div>
+                    <div class="col align-self-center">
+                        <div class="text-right">
+                            <a href="<c:url value='/artists/new'/>">
+                                <button class="btn btn-secondary align-content-center">New</button>
+                            </a>  
                         </div>
                     </div>
-                </c:forEach>
+                </div>  
+            </div>
+        </nav>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
+            <li class="breadcrumb-item active">Artists</li>
+        </ol>
+    </head>
+
+
+    <body>  
+        <div class="container-fluid">
+            <div class="row">  
+                <div class="col-sm d-none d-xl-block">
+
+                </div>
+
+                <div class="col">
+                    <c:forEach items="${artists}" var="artist">
+
+                        <!--Weergave van één artist  -->
+                        <!--Weergave van één artist  -->
+                        <!--Weergave van één artist  -->
+                        <div class="modal-content shadow">
+
+                            <div onclick="location.href = '<c:url value='/events/opn-events-${artist.id}'/>';" style="cursor: pointer;">
+
+                                <div class="text-center">
+                                    <h1 align="center"><c:out value="${artist.name}"/></h1>   
+                                    <h6 align="center"><c:out value="${artist.description}"/></h6>  
+                                </div> 
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button onclick="window.location.href = '<c:url value='/artists/edit-${artist.id}-artist'/>';" type="button" class="close mr-auto" data-dismiss="modal">
+                                    <button type="button" class="btn btn-danger">Delete</button>   
+                                </button>
+
+                                <button onclick="window.location.href = '<c:url value='/artists/delete-${artist.id}-artist'/>';" type="button" class="close" data-dismiss="modal">
+                                    <button type="button" class="btn btn-warning">Edit</button>
+                                </button>  
+                            </div>
+                        </div>
+
+                        <hr>
+
+                    </c:forEach>
+                </div>
+
+                <div class="col d-none d-xl-block">
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-">              
-    </div>
-</div>
-</div>
-</body>
+    </body>
 </html>

@@ -6,6 +6,7 @@
 package artmin.service;
 
 import artmin.dao.NoteDao;
+import artmin.model.Event;
 import artmin.model.Note;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class NoteService {
     }
      
     // zoeken van alle notes
-    public List<Note> findAllNotes() {
-        return dao.findAllNotes();
+    public List<Note> findAllNotes(Long eventID) {
+        return dao.findAllNotes(eventID);
     }
 }
