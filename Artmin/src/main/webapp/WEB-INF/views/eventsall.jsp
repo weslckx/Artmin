@@ -7,70 +7,136 @@
     <head>
         <title>Events</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
-
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <style>
             .glyphicon {
                 font-size: 30px;
             }
 
+            /* Grootte van de icons*/
+            .material-icons {
+                font-size: 30px
+            }
+
+            .small {
+                font-size: 15px
+            }
+
+            .item{
+                height: 150px;  
+            }
+
+
+
         </style>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
 
-    <nav class="navbar navbar-dark bg-dark d-block">
-        <div class="container d-block">
-            <div class="row">
-                <div class="col align-self-center">
-                    <div class="text-left">
-                        <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
-                    </div>
-                </div>      
-
-                <div class="col d-block">
-                    <h1 align="center"  class="text-white">EVENTS</h1>
+                <div class="col-1" onclick="location.href = '<c:url value='/'/>';" style="cursor: pointer;">
+                    <i class="material-icons my-auto text-white">home</i>
                 </div>
 
-                <div class="col align-self-center">
-                    <div class="text-right">
-                        <a href="<c:url value='/events/new-${hotartist.id}'/>">
-                            <button class="btn btn-secondary align-content-center">New</button>
-                        </a>  
-                    </div>
-                </div>
             </div>
-            <div class="row">   
-                <div class="col">
-                    <h6 align="center" class="text-white">DEMO USER NAAM //  ${hotartist.name}</h6>
-                </div>
+
+            <div class="col-8">
+                <h4 class="text-center my-auto text-white">EVENTS</h4>
             </div>
+
+            <div class="col col-1" onclick="location.href = '<c:url value='/eventtypes/new-${hotartist.id}-${0}-${false}'/>';" style="cursor: pointer;">
+
+                <i class="material-icons my-auto text-white">add</i>
+
+            </div>
+
         </div>
-    </nav>
+
+    </div>
+</nav>
 
 
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
-        <li class="breadcrumb-item"><a href="<c:url value='/artists'/>">Artists</a></li>
-        <li class="breadcrumb-item active">Events</li>
-    </ol>
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
+    <li class="breadcrumb-item"><a href="<c:url value='/artists'/>">Artists</a></li>
+    <li class="breadcrumb-item active">${hotartist.name} - Events</li>
+</ol>
 </head>
 
 <body>   
-    <div class="container-fluid">
-        <div class="row ">  
-            <div class="col-sm d-none d-xl-block">
 
+    <c:forEach items="${eventsnok}" var="eventnok">
+        <div class="text-center ">
+            <hr>
+            <h1 class="bg-dark text-white">NEW</h1>                         
+            <hr>
+        </div> 
+
+
+        <div class="container-fluid">
+            <div class="row ">  
+
+                <div class="col">
+
+                    <!--Weergave van één event  -->
+                    <!--Weergave van één event  -->
+                    <!--Weergave van één event  -->
+                    <div class="modal-content shadow bg-warning">
+
+                        <div onclick="location.href = '<c:url value='/events/detail-${eventnok.id}'/>';" style="cursor: pointer;">
+
+                            <div>
+
+                                <div class="text-center ">
+                                    <h1 ><c:out value="${eventnok.name}"/></h1>   
+                                    <h6 ><c:out value="${eventnok.eventType.name}"/></h6>                           
+                                </div> 
+                            </div>    
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button onclick="window.location.href = '<c:url value='/events/delete-${eventnok.id}-event-${hotartist.id}'/>';" type="button" class="btn btn-danger">
+                                <i class="material-icons small">clear</i>
+                            </button>   
+                        </div>
+                    </div>
+
+                    <hr>
+
+
+                </div>
             </div>
+        </div>
 
-            <div class="col">
-                <c:forEach items="${events}" var="event">
+    </c:forEach>
+
+
+    <c:forEach items="${events}" var="event">
+
+        <div class="text-center ">
+            <hr>
+            <h1 class="bg-dark text-white">FUTURE EVENTS</h1>                         
+            <hr>
+        </div> 
+
+
+        <div class="container-fluid">
+            <div class="row ">  
+
+                <div class="col">
 
                     <!--Weergave van één event  -->
                     <!--Weergave van één event  -->
                     <!--Weergave van één event  -->
                     <div class="modal-content shadow">
 
-                        <div onclick="location.href = '<c:url value='/events/detail-${event.id}-${hotartist.id}'/>';" style="cursor: pointer;">
+                        <div onclick="location.href = '<c:url value='/events/detail-${event.id}'/>';" style="cursor: pointer;">
 
                             <div>
 
@@ -81,8 +147,8 @@
                                 </div> 
                             </div>
 
-                                <hr>
-                                
+                            <hr>
+
                             <div class="modal-body">
                                 <h5><fmt:formatDate value="${event.dateCalendar}" type="date" pattern="dd-MMM-yyyy"/>
                                     //
@@ -94,29 +160,33 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="close mr-auto" data-dismiss="modal">
-                                <button type="button" class="btn btn-danger">Delete</button>         
-                            </button>
 
-                            <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="close" data-dismiss="modal">
-                                <button type="button" class="btn btn-warning">Edit</button>
-                            </button>  
+                            <!-- EDIT EVENT - UNDER CONSTRUCTION 
+                                        <button onclick="window.location.href = '<c:url value='NO PAGE'/>';" type="button" class="btn btn-warning">
+                                            <i class="material-icons small">edit</i>
+                                        </button>
+                            -->
+
+                            <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="btn btn-danger">
+                                <i class="material-icons small">clear</i>
+                            </button>   
                         </div>
                     </div>
 
                     <hr>
 
-                </c:forEach>
-            </div>
 
-            <div class="col d-none d-xl-block">
-
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
-</div>
+
+    </c:forEach>
+
+
+
+
+    <button onclick="window.location.href = '<c:url value='/events/opn-events-all-${hotartist.id}'/>';"  type="button" class="btn btn-outline-secondary btn-block">SHOW ALL</button>
 
 </body>
 

@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- *
- * @author r0798566
- */
 @Controller
 @RequestMapping("/artists")
 public class ArtistController {
@@ -87,6 +83,7 @@ public class ArtistController {
     public String listArtist(ModelMap model) {
         List<Artist> lstArtists = artistService.findAllArtists(); // ophalen gegevens uit database
         model.addAttribute("artists", lstArtists); //Attribute aan "pagina" model toevoegen naam: users, data= List<Users> met naam lstUsers
+
         return "artistsall"; // JSP Pagina pointer
     }
 

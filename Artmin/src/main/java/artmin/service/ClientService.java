@@ -7,6 +7,7 @@ package artmin.service;
 
 import artmin.dao.ClientDao;
 import artmin.model.Client;
+import artmin.model.EventLocation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,20 @@ public class ClientService {
         return dao.findById(id);
     }
      
+        // zoeken van eventType op basis van ID en naam
+    public Client findSingleClient(Long clientID, String name) {
+
+        List<Client> et = dao.findSingleClient(clientID, name);
+
+        if (et.isEmpty()) {
+            // Geen event type gevonden, return null
+            return null;
+        }
+
+        // geef de eerste oevereenkomende waarde terug
+        return et.get(0);
+    }
+    
     // Bewaren van gebruiker
     public void saveClient(Client client) {
         dao.saveClient(client);
@@ -59,5 +74,10 @@ public class ClientService {
     // zoeken van alle gebruikers
     public List<Client> findAllClients() {
         return dao.findAllClients();
+    }
+    
+       // zoeken van alle eventLocations
+    public List<Client> finAllMyClients(Long userID) {
+        return dao.finAllMyClients(userID);
     }
 }

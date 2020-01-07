@@ -16,6 +16,7 @@ import artmin.model.Event;
 import artmin.model.EventLocation;
 import artmin.model.EventType;
 import artmin.model.Note;
+import artmin.model.Payment;
 import artmin.model.Todo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,6 +56,18 @@ public class EventService {
     @Autowired
     private ClientDao clientDao;
 
+    @Autowired
+    private PaymentService paymentService;
+
+    @Autowired
+    EventTypeService eventTypeService; // patch service to autowired
+
+    @Autowired
+    NoteService noteService; // patch service to autowired
+
+    @Autowired
+    TodoService todoService; // patch service to autowired
+
     // zoeken van event op basis van ID
     public Event findById(Long id) {
 
@@ -93,12 +106,32 @@ public class EventService {
             entity.setCrowdsAvgAge(event.getCrowdsAvgAge());
             entity.setCrowdInformation(event.getCrowdInformation());
             entity.setCrowdAck(event.isCrowdAck());
+            entity.setCanceledAck(event.isCanceledAck());
         }
     }
 
     // verwijderen van event
-    public void deleteEventById(Long id) {
-        dao.deleteEventById(id);
+    public void deleteEventById(Long eventID) {
+        // Delete eerste alle onderliggende objecten
+        paymentService.deleteAllPayments(eventID); // payments
+        noteService.deleteAllNotes(eventID); // Notes
+        todoService.deleteAllTodo(eventID);
+
+        // Verwijder event
+        dao.deleteEventById(eventID);
+    }
+
+    // zoeken van alle events
+    public List<Event> findUpcommingEvents(Long artistID) {
+
+        List<Event> evnt = new ArrayList<Event>();
+        evnt.addAll(dao.findUpcommingEvents(artistID));
+
+        for (Event tmp : evnt) {
+            FillEvent(tmp);
+        }
+
+        return evnt;
     }
 
     // zoeken van alle events
@@ -110,6 +143,68 @@ public class EventService {
         for (Event tmp : evnt) {
             FillEvent(tmp);
         }
+
+        return evnt;
+    }
+
+    // Enkel ecents die nog niet OK zijn
+    public List<Event> findAllEventsNotOK(Long artistID) {
+
+        List<Event> evnt = new ArrayList<Event>();
+        evnt.addAll(dao.findAllEventsNotOK(artistID));
+
+        for (Event tmp : evnt) {
+            FillEvent(tmp);
+        }
+
+        return evnt;
+    }
+    
+        // Laatst aangemaakt event
+    public Event findEventByName(Long artistID, String name) {
+
+        List<Event> evnt = new ArrayList<Event>();
+        evnt.addAll(dao.findEventByName(artistID, name));
+
+        if (evnt.isEmpty()) {
+            // Geen event type gevonden, return null
+            return null;
+        }
+
+        Event ev = evnt.get(0);
+        
+        this.FillEvent(ev);
+        
+        // geef de eerste oevereenkomende waarde terug
+        return ev;
+    }
+        
+       
+
+    public List<Event> findEventsWithType(Long eventtypeID) {
+
+        List<Event> evnt = new ArrayList<Event>();
+
+        EventType evt = eventTypeService.findById(eventtypeID);
+
+        evnt.addAll(dao.findEventsWithType(evt));
+
+        return evnt;
+    }
+
+    public List<Event> findEventsWithLocation(Long locationID) {
+
+        List<Event> evnt = new ArrayList<Event>();
+        evnt.addAll(dao.findEventsWithLocation(locationID));
+
+        return evnt;
+    }
+
+    public List<Event> findEventsWithClient(Long clientID) {
+
+        List<Event> evnt = new ArrayList<Event>();
+
+        evnt.addAll(dao.findEventsWithClient(clientID));
 
         return evnt;
     }
@@ -128,6 +223,7 @@ public class EventService {
         List<Note> notes = noteDao.findAllNotes(evt.getId());
         evt.setAantalNotes(notes.size());
 
+        // TODO'S
         // Aantal ALLE onderliggende notities ophalen
         List<Todo> todos = todoDao.findAllTodos(evt.getId());
         evt.setAantalTodo(todos.size());
@@ -136,16 +232,32 @@ public class EventService {
         List<Todo> todosAck = todoDao.findAllTodosAck(evt.getId());
         evt.setAantalTodoAck(todosAck.size());
 
+        if (todos.size() > 0) {
+            if ((todos.size() == todosAck.size())) {
+                // Alle todo's zijn verwerkt
+                evt.setTodoAck(true);
+                this.saveEvent(evt);
+            }
+        }
+
+        // aantal ALLE onderliggende payments ophalen
+        List<Payment> allPayments = paymentService.findAllpayments(evt.getId());
+        evt.setAantalPayments(allPayments.size());
+
+        // aantal ACK payments ophalen
+        List<Payment> allAckPayments = paymentService.findAllPaymentsAck(evt.getId());
+        evt.setAantalPaymentsAck(allAckPayments.size());
+
         // Event locatie ophalen
         if (evt.getLocationID() > 0) {
             EventLocation eventLocation = eventLocationDao.findById(evt.getLocationID());
-            evt.setLocations(eventLocation);
-        } 
+            evt.setLocation(eventLocation);
+        }
 
         // Klantgegevens ophalen
         if (evt.getClientID() > 0) {
             Client client = clientDao.findById(evt.getClientID());
-            evt.setClients(client);
+            evt.setClient(client);
         }
 
     }

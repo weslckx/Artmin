@@ -34,7 +34,7 @@ public class Todo  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventID") // Object link naar Database ID
-    private Event events;
+    private Event event;
 
     @Column(name = "sortNumber", nullable = false)
     private int sortNumber;
@@ -68,13 +68,15 @@ public class Todo  implements Serializable {
         this.eventID = eventID;
     }
 
-    public Event getEvents() {
-        return events;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEvents(Event events) {
-        this.events = events;
+    public void setEvent(Event event) {
+        this.event = event;
     }
+
+
 
     public int getSortNumber() {
         return sortNumber;

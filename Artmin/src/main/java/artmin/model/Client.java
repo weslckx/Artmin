@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -32,18 +33,16 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userID", nullable = false, insertable = false, updatable = false)
-    private int userID;
+    @Column(name = "userID")
+    private Long userID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID") // Object link naar Database ID
+    @Transient
     private User user;
 
-    @Column(name = "artistID", nullable = false, insertable = false, updatable = false)
-    private int artistID;
+    @Column(name = "artistID")
+    private Long artistID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "artistID") // Object link naar Database ID
+    @Transient
     private Artist artist;
 
     @NotEmpty
@@ -77,10 +76,6 @@ public class Client implements Serializable {
     @Column(name = "ack", nullable = true)
     private boolean ack;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientID")
-    private Set<Event> events;
-
 //    Properties
     public Long getId() {
         return id;
@@ -90,13 +85,7 @@ public class Client implements Serializable {
         this.id = id;
     }
 
-    public int getUserID() {
-        return userID;
-    }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
     public User getUser() {
         return user;
@@ -106,13 +95,23 @@ public class Client implements Serializable {
         this.user = user;
     }
 
-    public int getArtistID() {
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public Long getArtistID() {
         return artistID;
     }
 
-    public void setArtistID(int artistID) {
+    public void setArtistID(Long artistID) {
         this.artistID = artistID;
     }
+
+
 
     public Artist getArtist() {
         return artist;
@@ -202,15 +201,42 @@ public class Client implements Serializable {
         this.ack = ack;
     }
 
-    public Set<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(Set<Event> events) {
-        this.events = events;
-    }
-
 //    Methodes
+    public boolean isComplete() {
+        // check of alle velden zijn ingevuld ==> set ACK
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+
+        if (street == null || street.isEmpty()) {
+            return false;
+        }
+
+        if (nrBus == null || nrBus.isEmpty()) {
+            return false;
+        }
+
+        if (postCode == null || postCode.isEmpty()) {
+            return false;
+        }
+
+        if (city == null || city.isEmpty()) {
+            return false;
+        }
+
+        if (country == null || country.isEmpty()) {
+            return false;
+        }
+
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+
+        this.setAck(true);
+
+        return true;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -32,18 +33,16 @@ public class EventLocation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userID", nullable = false, insertable = false, updatable = false)
+    @Column(name = "userID")
     private Long userID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID") // Object link naar Database ID
+    @Transient
     private User user;
 
-    @Column(name = "artistID", nullable = false, insertable = false, updatable = false)
+    @Column(name = "artistID")
     private Long artistID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "artistID") // Object link naar Database ID
+    @Transient
     private Artist artist;
 
     @NotEmpty
@@ -79,10 +78,6 @@ public class EventLocation implements Serializable {
 
     @Column(name = "ack", nullable = true)
     private boolean ack;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "locationID")
-    private Set<Event> events;
 
 //    Properties
     public Long getId() {
@@ -213,20 +208,51 @@ public class EventLocation implements Serializable {
         this.ack = ack;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public boolean isComplete() {
+        // check of alle velden zijn ingevuld ==> set ACK
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+
+        if (manager == null || manager.isEmpty()) {
+            return false;
+        }
+
+        if (street == null || street.isEmpty()) {
+            return false;
+        }
+
+        if (nrBus == null || nrBus.isEmpty()) {
+            return false;
+        }
+
+        if (postCode == null || postCode.isEmpty()) {
+            return false;
+        }
+
+        if (city == null || city.isEmpty()) {
+            return false;
+        }
+
+        if (country == null || country.isEmpty()) {
+            return false;
+        }
+
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+  
+        this.setAck(true);
+        
+        return true;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
-    }
-
-//    Methodes
     @Override
     public int hashCode() {
         final int prime = 31;
         long result = 1;
-        result = prime * result + id;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return (int) result;
     }
 

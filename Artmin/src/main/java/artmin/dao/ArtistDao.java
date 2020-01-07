@@ -9,14 +9,16 @@ import artmin.model.Artist;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository("artistDao")
 public class ArtistDao extends AbstractDao<Long, Artist> {
-    public Artist findById(Long id){
+
+    public Artist findById(Long id) {
         return getByKey(id);
     }
-    
+
     public void saveArtist(Artist artist) {
         persist(artist);
     }
@@ -26,7 +28,7 @@ public class ArtistDao extends AbstractDao<Long, Artist> {
         query.setLong("id", id);
         query.executeUpdate();
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<Artist> findAllArtists() {
         Criteria criteria = createEntityCriteria();

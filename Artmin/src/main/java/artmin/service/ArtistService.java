@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import artmin.dao.ArtistDao;
 import artmin.model.Artist;
 import artmin.model.Event;
+import artmin.model.EventLocation;
 
 @Service("artistService")
 @Transactional
@@ -16,9 +17,12 @@ public class ArtistService {
 
     @Autowired
     private ArtistDao dao;
-    
+
     @Autowired
     EventService eventService;
+    
+        @Autowired
+    EventLocationService eventLocationService;
 
     // zoeken van gebruiker op basis van ID
     public Artist findById(Long id) {
@@ -44,12 +48,20 @@ public class ArtistService {
     public void deleteArtistById(Long id) {
         // Eerst alle onnderliggende events verwijderen.
         List<Event> lstEvent = eventService.findAllEvents(id);
-        
+
         for (Event tmp : lstEvent) {
             // Loop alle events af om te verwijderen
             eventService.deleteEventById(tmp.getId());
-        }        
-        
+        }
+
+        // Alle afhankelijke locaties verwijderen
+        List<EventLocation> evtLocation =  eventLocationService.findAllMyLocations(id);
+
+        for (EventLocation tmp : evtLocation) {
+            // Loop alle events af om te verwijderen
+            eventLocationService.deleteEventLocationById(tmp.getId());
+        }
+
         // Verwijder Artiest Data
         dao.deleteArtistById(id);
     }
@@ -58,5 +70,4 @@ public class ArtistService {
     public List<Artist> findAllArtists() {
         return dao.findAllArtists();
     }
-    
 }

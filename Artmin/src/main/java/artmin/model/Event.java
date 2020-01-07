@@ -3,6 +3,8 @@
 package artmin.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
@@ -24,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "events")
-public class Event implements Serializable {
+public class Event implements Serializable, Comparable<Event> {
     //    Attributen
 
     @Id
@@ -82,22 +84,20 @@ public class Event implements Serializable {
     @Column(name = "confirmedAck", nullable = true)
     private boolean confirmedAck;
 
-    @Column(name = "locationID", nullable = true, insertable = false, updatable = false)
+    @Column(name = "locationID")
     private Long locationID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "locationID")  // Object link naar Database ID
-    private EventLocation locations;
+    @Transient
+    private EventLocation location;
 
     @Column(name = "locationAck", nullable = true)
     private boolean locationAck;
 
-    @Column(name = "clientID", nullable = false, insertable = false, updatable = false)
+    @Column(name = "clientID")
     private Long clientID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clientID")  // Object link naar Database ID
-    private Client clients;
+    @Transient
+    private Client client;
 
     @Column(name = "clientAck", nullable = true)
     private boolean clientAck;
@@ -116,6 +116,12 @@ public class Event implements Serializable {
 
     @Column(name = "canceledAck", nullable = true)
     private boolean canceledAck;
+
+    @Transient
+    private int aantalPayments;
+
+    @Transient
+    private int aantalPaymentsAck;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "eventID")
@@ -274,12 +280,12 @@ public class Event implements Serializable {
         this.locationID = locationID;
     }
 
-    public EventLocation getLocations() {
-        return locations;
+    public EventLocation getLocation() {
+        return location;
     }
 
-    public void setLocations(EventLocation locations) {
-        this.locations = locations;
+    public void setLocation(EventLocation location) {
+        this.location = location;
     }
 
     public boolean isLocationAck() {
@@ -298,12 +304,12 @@ public class Event implements Serializable {
         this.clientID = clientID;
     }
 
-    public Client getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClients(Client clients) {
-        this.clients = clients;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public boolean isClientAck() {
@@ -378,12 +384,28 @@ public class Event implements Serializable {
         this.canceledAck = canceledAck;
     }
 
+    public int getAantalPayments() {
+        return aantalPayments;
+    }
+
+    public void setAantalPayments(int aantalPayments) {
+        this.aantalPayments = aantalPayments;
+    }
+
+    public int getAantalPaymentsAck() {
+        return aantalPaymentsAck;
+    }
+
+    public void setAantalPaymentsAck(int aantalPaymentsAck) {
+        this.aantalPaymentsAck = aantalPaymentsAck;
+    }
+
     public void statusSwitch() {
         // Instellen van de status
 
         if (this.isCanceledAck() == true) {
             // Event is geanulleerd
-            this.setStatusText("CANCLED");
+            this.setStatusText("CANCELLED");
             this.setStatusColor("badge-danger");
 
         } else {
@@ -452,4 +474,115 @@ public class Event implements Serializable {
     public String toString() {
         return "Event [id=" + id + ", name=" + name + "]";
     }
+
+    public boolean SetEventDate(EventDate edate) {
+        try {
+
+            // SET CALENDAR DATE
+            this.setDateCalendar(stringToDate(edate.getCalendarDate()));
+            if (this.getDateCalendar() == null) {
+                return false;
+            }
+
+            // SET ACT START DATE
+            this.setDateActStart(stringToDate(edate.getActStart()));
+            if (this.getDateActStart() == null) {
+                return false;
+            }
+
+            // SET ACT END DATE
+            // SET ACT START DATE
+            this.setDateActEnd(stringToDate(edate.getActEnd()));
+            if (this.getDateActEnd() == null) {
+                return false;
+            }
+
+            this.setDateAck(edate.isAck());
+
+            return true; // Alles is goed verlopen
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Date stringToDate(StringDate sdate) {
+        // Parse string to Date
+        String year = Integer.toString(sdate.getYear());
+        String month = formatValue(sdate.getMonth());
+        String day = formatValue(sdate.getDay());
+        String hour = formatValue(sdate.getHour());
+        String min = formatValue(sdate.getMin());
+
+        try {
+            // String (datum) samenstellen
+            String dateTime = day + "-" + month + "-" + year + " " + hour + ":" + min + ":00";
+
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+            return format.parse(dateTime);
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private String formatValue(int value) {
+        // Als de value kleiner is dan 10, een "0" vooraan toevoegen
+        if (value < 10) {
+            return "0" + Integer.toString(value);
+        } else {
+            return Integer.toString(value);
+        }
+    }
+
+    public EventDate getStringDates() {
+        // Instance
+        EventDate ed = new EventDate();
+
+        if (this.getDateCalendar() != null) {
+            ed.setCalendarDate(dateFromString(this.getDateCalendar()));
+        }
+
+        if (this.getDateActStart() != null) {
+            ed.setActStart(dateFromString(this.getDateActStart()));
+        }
+
+        if (this.getDateActEnd() != null) {
+            ed.setActEnd(dateFromString(this.getDateActEnd()));
+        }
+
+        ed.setAck(this.isDateAck()); // Set Ac
+
+        return ed;
+    }
+
+    private StringDate dateFromString(Date value) {
+        // get date string
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String strDate = dateFormat.format(value);
+
+        String sss = strDate.substring(5, 7);
+
+        // instance of stringdate
+        StringDate sd = new StringDate();
+        sd.setYear(Integer.parseInt(strDate.substring(0, 4)));
+        sd.setMonth(Integer.parseInt(strDate.substring(5, 7)));
+        sd.setDay(Integer.parseInt(strDate.substring(8, 10)));
+
+        sd.setHour(Integer.parseInt(strDate.substring(11, 13)));
+        sd.setMin(Integer.parseInt(strDate.substring(14, 16)));
+
+        return sd;
+    }
+
+    @Override
+    public int compareTo(Event evt) {
+        // Sorteren op act start tijd
+        if (this.getDateActStart() == null || evt.getDateActStart() == null) {
+            return 0;
+        }
+        return this.getDateActStart().compareTo(evt.getDateActStart());
+    }
+
 }

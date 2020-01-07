@@ -6,54 +6,51 @@
 <html>
 
     <head>
-        <title>Events</title>
+        <title>New Artist</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <style>
-            tr:first-child{
-                font-weight: bold;
-                background-color: #C6C9C4;
+            .glyphicon {
+                font-size: 30px;
             }
 
-            #btn-danger {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                cursor: pointer;
-                float: right;
+            /* Grootte van de icons*/
+            .material-icons {
+                font-size: 30px
             }
+
+            .item{
+                height: 150px;  
+            }
+
+
 
         </style>
 
-                <nav class="navbar navbar-dark bg-dark d-block">
-            <div class="container d-block">
-                <div class="row">
-                    <div class="col align-self-center">
-                        <div class="text-left">
-                            <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
-                        </div>
-                    </div>      
+           <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
 
-                    <div class="col d-block">
-                        <h1 align="center"  class="text-white">new ARTIST</h1>
-                    </div>
+                <div class="col-1" onclick="location.href = '<c:url value='/'/>';" style="cursor: pointer;">
+                    <i class="material-icons my-auto text-white">home</i>
+                </div>
 
-                    <div class="col align-self-center">
-                        <div class="text-right">
-                            <a href="<c:url value='/artists/new'/>">
-                                <button class="btn btn-secondary align-content-center">New</button>
-                            </a>  
-                        </div>
-                    </div>
-                </div>  
             </div>
-        </nav>
-       
+
+            <div class="col-8">
+                <h4 class="text-center my-auto text-white">EDIT ARTIST</h4>
+            </div>
+
+            <div class="col col-1" onclick="location.href = '<c:url value='/artists/new'/>';" style="cursor: pointer;">
+ 
+
+            </div>
+        </div>
+    </nav>
+
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<c:url value='/'/>">Home</a></li>
@@ -68,10 +65,9 @@
 
 
 </body>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-">
-        </div>
+ 
 
         <div class="col-lg">
 
@@ -96,7 +92,7 @@
                     </div>  
 
                     <hr>
-                    
+
                     <!-- Logo Url -->
                     <!-- Logo Url -->
                     <!-- Logo Url -->
@@ -114,7 +110,7 @@
 
                         </c:when>
                         <c:otherwise>
-                            <button type="submit" class="btn btn-primary">Add Artist</button>
+                            <button type="submit" class="btn btn-primary btn-block">Add Artist</button>
 
                         </c:otherwise>
                     </c:choose>                
@@ -123,7 +119,6 @@
             </form:form>
 
         </div>
-        <div class="col-">              
-        </div>
-    </div>
+ 
+  </div>
 </html>
