@@ -25,7 +25,7 @@ public class TodoTemplateService {
     private TodoTemplateDao dao;
      
     // zoeken van todoTemplate op basis van ID
-    public TodoTemplate findById(int id) {
+    public TodoTemplate findById(Long id) {
         return dao.findById(id);
     }
  
@@ -45,7 +45,7 @@ public class TodoTemplateService {
     }
  
     // verwijderen van todoTemplate
-    public void deleteTodoTemplateById(long id) {
+    public void deleteTodoTemplateById(Long id) {
         dao.deleteTodoTemplateById(id);
     }
      

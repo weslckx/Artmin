@@ -5,10 +5,12 @@
  */
 package artmin.dao;
 
+import artmin.model.Event;
 import artmin.model.Note;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,14 +29,17 @@ public class NoteDao extends AbstractDao<Long, Note>{
     }
 
     public void deleteNoteById(Long id) {
-        Query query = getSession().createSQLQuery("delete from note where id = :id");
+        Query query = getSession().createSQLQuery("delete from Notes where id = :id");
         query.setLong("id", id);
         query.executeUpdate();
     }
     
     @SuppressWarnings("unchecked")
-    public List<Note> findAllNotes() {
+    public List<Note> findAllNotes(Long eventID) {
+        // Enkel de notities ophalen die bij één event horen
         Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("eventID", eventID));
+        
         return (List<Note>) criteria.list();
-    }
+    }  
 }
