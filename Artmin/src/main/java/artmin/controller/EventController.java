@@ -203,23 +203,6 @@ public class EventController {
         return this.ListUpcommingEvents(artistID, model);
     }
 
-    // GET CROWD
-    @RequestMapping(value = {"/crowd-{eventID}"}, method = RequestMethod.GET)
-    public String getCrowd(@PathVariable Long eventID, ModelMap model) {
-        // Haal alle events met filter: artist ID 
-        Event evt = eventService.findById(eventID); // ophalen gegevens uit database
-
-        Crowd crowd = new Crowd();
-        crowd.setCrowdAck(evt.isCrowdAck());
-        crowd.setCrowdInformation(evt.getCrowdInformation());
-        crowd.setCrowdQty(evt.getCrowdQty());
-        crowd.setCrowdsAvgAge(evt.getCrowdsAvgAge());
-
-        model.addAttribute("crowd", crowd); //Attribute aan "pagina" model toevoegen naam: users, data= List<Users> met naam lstUsers
-
-        return "crowdedit"; // JSP Pagina pointer
-    }
-
     // POST CROWD
     @RequestMapping(value = {"/crowd-{eventID}"}, method = RequestMethod.POST)
     public String setCrowd(Crowd crowd, @PathVariable Long eventID, ModelMap model) {
@@ -250,6 +233,26 @@ public class EventController {
         return "dateedit"; // JSP Pagina pointer
     }
 
+        // GET CROWD
+    @RequestMapping(value = {"/crowd-{eventID}"}, method = RequestMethod.GET)
+    public String getCrowd(@PathVariable Long eventID, ModelMap model) {
+        // Haal alle events met filter: artist ID 
+        Event evt = eventService.findById(eventID); // ophalen gegevens uit database
+
+        Crowd crowd = new Crowd();
+        crowd.setCrowdAck(evt.isCrowdAck());
+        crowd.setCrowdInformation(evt.getCrowdInformation());
+        crowd.setCrowdQty(evt.getCrowdQty());
+        crowd.setCrowdsAvgAge(evt.getCrowdsAvgAge());
+
+         // Event naar view pathen
+        model.addAttribute("event", evt);
+        
+        model.addAttribute("crowd", crowd); //Attribute aan "pagina" model toevoegen naam: users, data= List<Users> met naam lstUsers
+
+        return "crowdedit"; // JSP Pagina pointer
+    }
+    
     // POST CROWD
     @RequestMapping(value = {"/date-{eventID}"}, method = RequestMethod.POST)
     public String setDate(EventDate edate, @PathVariable Long eventID, ModelMap model) {

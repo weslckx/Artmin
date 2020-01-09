@@ -29,6 +29,9 @@
                 height: 150px;  
             }
 
+            .dateNotation{
+                margin: 10px;
+            }
 
 
         </style>
@@ -69,13 +72,17 @@
 
 <body>   
 
-    <c:forEach items="${eventsnok}" var="eventnok">
+
+    <c:if test="${eventsnok.size() > 0}">
         <div class="text-center ">
             <hr>
             <h1 class="bg-dark text-white">NEW</h1>                         
             <hr>
         </div> 
+    </c:if> 
 
+
+    <c:forEach items="${eventsnok}" var="eventnok">
 
         <div class="container-fluid">
             <div class="row ">  
@@ -116,14 +123,15 @@
 
     </c:forEach>
 
-
-    <c:forEach items="${events}" var="event">
-
+    <c:if test="${events.size() > 0}">
         <div class="text-center ">
             <hr>
             <h1 class="bg-dark text-white">FUTURE EVENTS</h1>                         
             <hr>
         </div> 
+    </c:if> 
+
+    <c:forEach items="${events}" var="event">
 
 
         <div class="container-fluid">
@@ -141,36 +149,155 @@
                             <div>
 
                                 <div class="text-center">
+                                    <diV class="dateNotation"> 
+                                        <h5><fmt:formatDate value="${event.dateCalendar}" type="date" pattern="dd-MMM-yyyy"/>
+                                            //
+                                            <fmt:formatDate value="${event.dateActStart}" type="date" pattern="HH:mm"/>
+                                            - 
+                                            <fmt:formatDate value="${event.dateActEnd}" type="date" pattern="HH:mm"/></h5>
+                                    </div>
+
+                                    <hr>
+
                                     <h1 ><c:out value="${event.name}"/></h1>   
-                                    <h6 ><c:out value="${event.eventType.name}"/></h6>  
-                                    <div><h1><span class="badge badge-pill ${event.statusColor}">${event.statusText}</span></h1></div>                                
+                                    <h6 ><c:out value="${event.eventType.name}"/></h6>                            
                                 </div> 
+                            </div>
+
+                            <!-- LOCATION INFORMATION -->
+                            <c:if test="${event.locationAck}">
+                                <hr>
+                                <div class="modal-body text-center">
+                                    <h5>LOCATION</h5>
+                                    <h7 class="d-block">${event.location.name} (${event.location.manager})</h7>
+                                    <h7 class="d-block">${event.location.street} ${event.location.nrBus}</h7>
+                                    <h7 class="d-block">${event.location.postCode} ${event.location.city}</h7>
+                                    <h7 class="d-block">${event.location.country}</h7>
+                                </div>
+                            </c:if> 
+
+                            <hr>
+
+
+                            <div class="modal-body dateNotation text-center">
+
+                                <div><h3><span class="badge badge-pill ${event.statusColor}">${event.statusText}</span></h3></div>     
+
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <!-- TODO -->
+                                        <c:choose>
+                                            <c:when test="${event.todoAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">event_available</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">event_available</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+
+                                        <!-- DATE -->
+                                        <c:choose>
+                                            <c:when test="${event.dateAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">event</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">event</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+
+
+                                        <!-- Confirmed -->
+                                        <c:choose>
+                                            <c:when test="${event.confirmedAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">check_box</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">check_box</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+
+                                        <!-- Location -->
+                                        <c:choose>
+                                            <c:when test="${event.locationAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">location_on</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">location_on</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+                                        <!-- Client -->
+                                        <c:choose>
+                                            <c:when test="${event.clientAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">person</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">person</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+                                        <!-- CROWD -->
+                                        <c:choose>
+                                            <c:when test="${event.crowdAck}">
+                                                <div class="col-2 bg-success">
+                                                    <i class="material-icons text-white text-center d-block">people</i>
+                                                </div>
+
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-2 bg-danger">
+                                                    <i class="material-icons text-white text-center d-block">people</i>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose> 
+
+                                    </div>
+                                </div>
+
                             </div>
 
                             <hr>
 
-                            <div class="modal-body">
-                                <h5><fmt:formatDate value="${event.dateCalendar}" type="date" pattern="dd-MMM-yyyy"/>
-                                    //
-                                    <fmt:formatDate value="${event.dateActStart}" type="date" pattern="HH:mm"/>
-                                    - 
-                                    <fmt:formatDate value="${event.dateActEnd}" type="date" pattern="HH:mm"/></h5>
+                            <div class="modal-body text-center">  
+                                <span class="badge badge-pill badge-info"><h6 class="text-white">PAYMENTS: ${event.aantalPaymentsAck}/${event.aantalPayments} OK</h6></span>
                             </div>
-
                         </div>
 
                         <div class="modal-footer">
-
-                            <!-- EDIT EVENT - UNDER CONSTRUCTION 
-                                        <button onclick="window.location.href = '<c:url value='NO PAGE'/>';" type="button" class="btn btn-warning">
-                                            <i class="material-icons small">edit</i>
-                                        </button>
-                            -->
 
                             <button onclick="window.location.href = '<c:url value='/events/delete-${event.id}-event-${hotartist.id}'/>';" type="button" class="btn btn-danger">
                                 <i class="material-icons small">clear</i>
                             </button>   
                         </div>
+
                     </div>
 
                     <hr>
@@ -179,12 +306,7 @@
                 </div>
             </div>
         </div>
-
-
     </c:forEach>
-
-
-
 
     <button onclick="window.location.href = '<c:url value='/events/opn-events-all-${hotartist.id}'/>';"  type="button" class="btn btn-outline-secondary btn-block">SHOW ALL</button>
 

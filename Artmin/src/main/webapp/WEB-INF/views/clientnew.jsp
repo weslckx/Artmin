@@ -6,7 +6,7 @@
 <html>
 
     <head>
-        <title>Events</title>
+        <title>Client Information</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
@@ -26,75 +26,72 @@
                 height: 150px;  
             }
 
-            input[type='checkbox'] {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                margin-bottom: 10px;
-                width:60px;
-                height:60px;
-            }
-
 
 
         </style>
 
-    <nav class="navbar navbar-dark bg-dark d-block">
-        <div class="container d-block">
-            <div class="row">
-                <div class="col align-self-center">
-                    <div class="text-left">
-                        <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <c:if test="${!publicclient}">
+                    <div class="col-1" onclick="location.href = '<c:url value='/'/>';" style="cursor: pointer;">
+                        <i class="material-icons my-auto text-white">home</i>
                     </div>
-                </div>      
-
-                <div class="col d-block">
-                    <h1 align="center"  class="text-white">new CLIENT</h1>
-                </div>
-
-                <div class="col align-self-center">
-                    <div class="text-right">
-
-                    </div>
-                </div>
+                </c:if> 
             </div>
 
-            <div class="row">   
-                <div class="col">
-                    <h6 align="center" class="text-white">${event.name}</h6>
-                </div>
+            <div class="col-8">
+                <c:choose>
+                    <c:when test="${!publicclient}">
+                        <h4 class="text-center my-auto text-white">New CLIENT</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <h4 class="text-center my-auto text-white">Client Information</h4>
+                    </c:otherwise>
+                </c:choose>  
+
+
+
             </div>
+
+            <div class="col col-1">
+
+            </div>
+
         </div>
-
 
     </nav>
 
-    <button type="button" class="btn btn-info btn-lg btn-block" onclick="location.href = '<c:url value='/events/detail-${event.id}'/>';">
-        <div class="container-fluid">
-            <div class="row">  
-                <div class="col align-self-center">
-                    <div class="text-right">
-                        <i class="material-icons">clear_all</i>
+    <c:if test="${!publicclient}">
+        <button type="button" class="btn btn-info btn-lg btn-block" onclick="location.href = '<c:url value='/events/detail-${event.id}'/>';">
+            <div class="container-fluid">
+                <div class="row">  
+                    <div class="col align-self-center">
+                        <div class="text-right">
+                            <i class="material-icons">clear_all</i>
+                        </div>
+                    </div>
+
+                    <div class="col align-self-center text-left">
+                        ${event.name}
                     </div>
                 </div>
-
-                <div class="col align-self-center text-left">
-                    ${event.name}
-                </div>
             </div>
-        </div>
-    </button>
+        </button>
+    </c:if> 
+
+
 </head>
 
 
 <body>
-
+    <br>
     <div class="container-fluid">
         <div class="row">
 
             <div class="col-lg">
 
-                <form:form method="POST" modelAttribute="client">
+                <form:form action="/clients/new-${event.id}-${publicclient}" method="POST" modelAttribute="client">
                     <form:input type="hidden" path="id" id="id"/>
                     <form:input type="hidden" path="userID" id="userID" value="${5}"/>
                     <form:input type="hidden" path="artistID" id="artistID" value="${event.artistID}"/>
@@ -144,7 +141,7 @@
 
                         <!--BTW NUMMER-->
                         <div class="form-group">
-                            <label for="exampleInputEmail1">CUNTRY</label>
+                            <label for="exampleInputEmail1">VAT (optional)</label>
                             <form:input path="vat" id="vat" class="form-control" placeholder="VAT Number"/>
                         </div> 
 
@@ -169,24 +166,38 @@
                         <!-- Check -->
                         <!-- Check -->
                         <!-- Check -->
-                         <div class="d-block">
+                        <c:if test="${!publicclient}">
+                                        <div class="d-block">
                             <form:checkbox class="checkbox" path="ack" id="ack" />
                         </div>
-
+                        </c:if> 
 
                         <!-- SUBMIT BUTTON -->
                         <!-- SUBMIT BUTTON -->
                         <!-- SUBMIT BUTTON -->
                         <c:choose>
-                            <c:when test="${edit}">
-                                <button type="submit" class="btn btn-primary btn-block">Update Client</button>
+                            <c:when test="${!publicclient}">
+
+
+                                <c:choose>
+                                    <c:when test="${edit}">
+                                        <button type="submit" class="btn btn-primary btn-block">Update Client</button>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="submit" class="btn btn-primary btn-block">Add Client</button>
+
+                                    </c:otherwise>
+                                </c:choose>   
+
 
                             </c:when>
                             <c:otherwise>
-                                <button type="submit" class="btn btn-primary btn-block">Add Client</button>
-
+                                <button type="submit" class="btn btn-primary btn-block">Send</button>
                             </c:otherwise>
-                        </c:choose>                
+                        </c:choose>  
+
+
 
                     </fieldset>
                 </form:form>

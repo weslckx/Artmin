@@ -34,13 +34,13 @@ public class ClientController {
 
     @Autowired
     EventLocationService eventLocationService;
-    
-        @Autowired
+
+    @Autowired
     ClientService clientService;
 
     // NEW GET
-    @RequestMapping(value = {"/new-{eventID}"}, method = RequestMethod.GET)
-    public String newItem(@PathVariable Long eventID, ModelMap model) {
+    @RequestMapping(value = {"/new-{eventID}-{publicclient}"}, method = RequestMethod.GET)
+    public String newItem(@PathVariable Long eventID, @PathVariable boolean publicclient, ModelMap model) {
 
         // Get Event object
         Event evnt = eventService.findById(eventID);
@@ -50,14 +50,16 @@ public class ClientController {
         Client client = new Client();
         model.addAttribute("client", client);
 
+        model.addAttribute("publicclient", publicclient);
+
         // Set new
         model.addAttribute("edit", false);
         return "clientnew"; // view
     }
 
     // NEW POST
-    @RequestMapping(value = {"/new-{eventID}"}, method = RequestMethod.POST)
-    public String saveItem(Client client, @PathVariable Long eventID, BindingResult result, ModelMap model) {
+    @RequestMapping(value = {"/new-{eventID}-{publicclient}"}, method = RequestMethod.POST)
+    public String saveItem(Client client, @PathVariable Long eventID, @PathVariable boolean publicclient, BindingResult result, ModelMap model) {
 
         // Check of alle velden zijn ingevuld en zet "ACK"
         client.isComplete();
@@ -71,8 +73,19 @@ public class ClientController {
         // Get Back Location
         Client newClient = clientService.findSingleClient(client.getUserID(), client.getName());
 
-        // terug naar overzicht
-        return addLocationToEvent(eventID, newClient.getId(), model);
+        if (publicclient) {
+            // Extern invul formulier = return thanks
+
+            String test = addLocationToEvent(eventID, newClient.getId(), model); // niet als page pointer gebruiken
+            
+            return "publicfinal"; // Static page
+
+        } else {
+            // normaal gebruik app
+            // terug naar overzicht
+            return addLocationToEvent(eventID, newClient.getId(), model);
+        }
+
     }
 
     // UPDATE GET
@@ -151,7 +164,7 @@ public class ClientController {
 
         // Haal alle events met filter: artist ID 
         Event evt = eventService.findById(eventID); // ophalen gegevens uit database
-        
+
         // Write EventLocation to Event
         evt.setClientID(clientID);
         evt.setClient(clientService.findById(clientID));

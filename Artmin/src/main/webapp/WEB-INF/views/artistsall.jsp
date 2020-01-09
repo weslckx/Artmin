@@ -90,9 +90,11 @@
                                 <i class="material-icons small">edit</i>
                             </button>
 
+                                <!--
                             <button onclick="window.location.href = '<c:url value='/artists/delete-${artist.id}-artist'/>';" type="button" class="btn btn-danger">
                                 <i class="material-icons small">clear</i>
-                            </button>   
+                            </button>  
+                                -->
 
 
 
