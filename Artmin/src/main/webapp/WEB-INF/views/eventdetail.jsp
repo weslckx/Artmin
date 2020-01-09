@@ -439,8 +439,8 @@
                     <div class="col-6">
                         <h3>CLIENT</h3>                  
                     </div>
-                    
-                      <div class="col-6">
+
+                    <div class="col-6">
                         <a href="/clients/new-${event.id}-true">Client Form</a>                  
                     </div>
                 </div>    
@@ -451,15 +451,15 @@
                     </div>
                 </div>
 
-                    
-                    
+
+
                 <div class="row">
                     <div class="col-6">    ·
                         ${event.client.city}
                     </div>
-                    
-                             <div class="col-6">    
-                         ${event.client.email}
+
+                    <div class="col-6">    
+                        ${event.client.email}
                     </div>
                 </div>
             </div>
