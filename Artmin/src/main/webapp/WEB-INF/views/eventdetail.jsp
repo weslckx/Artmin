@@ -436,12 +436,14 @@
             <!-- DETAIL MIDDLE COLUMN -->
             <div class="container">
                 <div class="row">
-                    <div class="col-sm">
-                        <h3>CLIENT</h3>
-                        <hr>
+                    <div class="col-6">
+                        <h3>CLIENT</h3>                  
                     </div>
-                </div>
 
+                    <div class="col-6">
+                        <a href="/clients/new-${event.id}-true">Client Form</a>                  
+                    </div>
+                </div>    
 
                 <div class="row">
                     <div class="col-sm">    
@@ -449,9 +451,15 @@
                     </div>
                 </div>
 
+
+
                 <div class="row">
-                    <div class="col-sm">    
+                    <div class="col-6">    ·
                         ${event.client.city}
+                    </div>
+
+                    <div class="col-6">    
+                        ${event.client.email}
                     </div>
                 </div>
             </div>

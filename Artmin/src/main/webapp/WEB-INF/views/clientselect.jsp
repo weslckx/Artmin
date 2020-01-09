@@ -6,7 +6,7 @@
 <html>
 
     <head>
-        <title>Locations</title>
+        <title>Events</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="<c:url value="/resources/bootstrap.css" />" rel="stylesheet">
@@ -22,10 +22,6 @@
                 font-size: 30px
             }
 
-            .small {
-                font-size: 15px
-            }
-
             .item{
                 height: 150px;  
             }
@@ -34,35 +30,31 @@
 
         </style>
 
-    <nav class="navbar navbar-dark bg-dark d-block">
-        <div class="container d-block">
-            <div class="row">
-                <div class="col align-self-center">
-                    <div class="text-left">
-                        <a class="navbar-brand" href="<c:url value='/' />"><h3>Artmin</a> 
-                    </div>
-                </div>      
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
 
-                <div class="col d-block">
-                    <h1 align="center"  class="text-white">SELECT CLIENT</h1>
+                <div class="col-1" onclick="location.href = '<c:url value='/'/>';" style="cursor: pointer;">
+                    <i class="material-icons my-auto text-white">home</i>
                 </div>
 
-                <div class="col align-self-center">
-                    <div class="text-right">
-                        <a href="<c:url value='/clients/new-${event.id}'/>">
-                            <button class="btn btn-secondary align-content-center">New</button>
-                        </a>  
-                    </div>
-                </div>
             </div>
 
-            <div class="row">   
-                <div class="col">
-                    <h6 align="center" class="text-white">${event.name}</h6>
-                </div>
+            <div class="col-8">
+                <h4 class="text-center my-auto text-white">SELECT CLIENT</h4>
             </div>
+
+            <div class="col col-1" onclick="location.href = '<c:url value='/clients/new-${event.id}-${false}'/>';" style="cursor: pointer;">
+
+                <i class="material-icons my-auto text-white">add</i>
+
+            </div>
+
         </div>
-    </nav>
+
+    </div>
+</nav>
+
 
     <button type="button" class="btn btn-info btn-lg btn-block" onclick="location.href = '<c:url value='/events/detail-${event.id}'/>';">
         <div class="container-fluid">
@@ -96,7 +88,7 @@
                         <div onclick="location.href = '<c:url value='/clients/addToEvent-${event.id}-${client.id}'/>';" style="cursor: pointer;">
 
                             <div class="text-center">
-                                <h1 align="center"><c:out value="${client.name}"/></h1>   
+                                <h3 align="center"><c:out value="${client.name}"/></h3>   
                                 <h6 align="center"><c:out value="${client.city}"/></h6>  
                             </div> 
                         </div>

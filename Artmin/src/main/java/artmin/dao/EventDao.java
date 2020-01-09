@@ -83,6 +83,7 @@ public class EventDao extends AbstractDao<Long, Event> {
         criteriaevent.add(Restrictions.eq("todoAck", false));
         criteriaevent.add(Restrictions.eq("dateAck", false));
         criteriaevent.add(Restrictions.eq("confirmedAck", false));
+        criteriaevent.add(Restrictions.eq("locationAck", false));
         criteriaevent.add(Restrictions.eq("clientAck", false));
         criteriaevent.add(Restrictions.eq("crowdAck", false));
         criteriaevent.add(Restrictions.eq("canceledAck", false));

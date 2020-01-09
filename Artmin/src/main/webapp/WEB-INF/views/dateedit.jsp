@@ -80,6 +80,8 @@
 <body>
 
     ${error}
+    
+    <br>
 
     <div class="container-fluid">
         <div class="row">
@@ -97,51 +99,6 @@
                             <label for="exampleInputEmail1">Calendar Date:</label>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="exampleSelect1">Year</label>
-
-                                            <form:select class="form-control" path="calendarDate.year" id="calendarDate.year">
-                                                <option>2020</option>
-                                                <option >2021</option>
-                                                <option>2022</option>
-                                                <option>2023</option>
-                                                <option>2024</option>
-                                                <option>2025</option>
-                                            </form:select>
-
-                                            <script>
-                                                document.getElementById("calendarDate.year").value = '${edate.calendarDate.year}';
-                                            </script>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="exampleSelect1">Month</label>
-
-                                            <form:select class="form-control" path="calendarDate.month" id="calendarDate.month">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                            </form:select>
-
-                                            <script>
-                                                document.getElementById("calendarDate.month").value = '${edate.calendarDate.month}';
-                                            </script>
-
-                                        </div>
-                                    </div>
-
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="exampleSelect1">Day</label>
@@ -186,50 +143,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-2">
-                                        <div class="form-group">
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-2">
-                                        <div class="form-group">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <label for="exampleInputEmail1">Act Start:</label>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="exampleSelect1">Year</label>
-
-                                            <form:select class="form-control" path="actStart.year" id="actStart.year">
-                                                <option>2020</option>
-                                                <option>2021</option>
-                                                <option>2022</option>
-                                                <option>2023</option>
-                                                <option>2024</option>
-                                                <option>2025</option>
-                                            </form:select>
-
-                                            <script>
-                                                document.getElementById("actStart.year").value = '${edate.actStart.year}';
-                                            </script>
-                                        </div>
-                                    </div>
-
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="exampleSelect1">Month</label>
 
-                                            <form:select class="form-control" path="actStart.month" id="actStart.month">
+                                            <form:select class="form-control" path="calendarDate.month" id="calendarDate.month">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
@@ -245,11 +163,53 @@
                                             </form:select>
 
                                             <script>
-                                                document.getElementById("actStart.month").value = '${edate.actStart.month}';
+                                                document.getElementById("calendarDate.month").value = '${edate.calendarDate.month}';
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Year</label>
+
+                                            <form:select class="form-control" path="calendarDate.year" id="calendarDate.year">
+                                                <option>2020</option>
+                                                <option >2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2024</option>
+                                                <option>2025</option>
+                                            </form:select>
+
+                                            <script>
+                                                document.getElementById("calendarDate.year").value = '${edate.calendarDate.year}';
                                             </script>
                                         </div>
                                     </div>
 
+
+
+                                    <div class="col-2">
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Act Start:</label>
+                            <div class="container">
+                                <div class="row">
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="exampleSelect1">Day</label>
@@ -293,6 +253,51 @@
                                             </script>
                                         </div>
                                     </div>
+
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Month</label>
+
+                                            <form:select class="form-control" path="actStart.month" id="actStart.month">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                            </form:select>
+
+                                            <script>
+                                                document.getElementById("actStart.month").value = '${edate.actStart.month}';
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Year</label>
+
+                                            <form:select class="form-control" path="actStart.year" id="actStart.year">
+                                                <option>2020</option>
+                                                <option>2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2024</option>
+                                                <option>2025</option>
+                                            </form:select>
+
+                                            <script>
+                                                document.getElementById("actStart.year").value = '${edate.actStart.year}';
+                                            </script>
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="col-6">
                                         <div class="form-group">
@@ -408,55 +413,13 @@
                             </div>
                         </div>
 
+                        <hr>
+
                         <div class="form-group">
 
                             <label for="exampleInputEmail1">Act end:</label>
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="exampleSelect1">Year</label>
-
-                                            <form:select class="form-control" path="actEnd.year" id="actEnd.year">
-                                                <option>2020</option>
-                                                <option>2021</option>
-                                                <option>2022</option>
-                                                <option>2023</option>
-                                                <option>2024</option>
-                                                <option>2025</option>
-                                            </form:select>
-
-                                            <script>
-                                                document.getElementById("actEnd.year").value = '${edate.actEnd.year}';
-                                            </script>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="exampleSelect1">Month</label>
-
-                                            <form:select class="form-control" path="actEnd.month" id="actEnd.month">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                            </form:select>
-
-                                            <script>
-                                                document.getElementById("actEnd.month").value = '${edate.actEnd.month}';
-                                            </script>
-                                        </div>
-                                    </div>
-
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="exampleSelect1">Day</label>
@@ -501,6 +464,51 @@
 
                                         </div>
                                     </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Month</label>
+
+                                            <form:select class="form-control" path="actEnd.month" id="actEnd.month">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                                <option>7</option>
+                                                <option>8</option>
+                                                <option>9</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                            </form:select>
+
+                                            <script>
+                                                document.getElementById("actEnd.month").value = '${edate.actEnd.month}';
+                                            </script>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Year</label>
+
+                                            <form:select class="form-control" path="actEnd.year" id="actEnd.year">
+                                                <option>2020</option>
+                                                <option>2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2024</option>
+                                                <option>2025</option>
+                                            </form:select>
+
+                                            <script>
+                                                document.getElementById("actEnd.year").value = '${edate.actEnd.year}';
+                                            </script>
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="col-6">
                                         <div class="form-group">
@@ -606,8 +614,8 @@
                                                 <option>58</option>
                                                 <option>59</option>
                                             </form:select>
-                                                
-                                                  <script>
+
+                                            <script>
                                                 document.getElementById("actEnd.min").value = '${edate.actEnd.min}';
                                             </script>
                                         </div>
