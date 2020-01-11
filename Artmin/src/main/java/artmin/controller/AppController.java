@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import artmin.model.DemoUser;
 import artmin.service.ArtistService;
 import artmin.service.UserService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping("/")
@@ -47,5 +48,5 @@ public class AppController {
     public String start(ModelMap model) {
  
         return "index"; // JSP Pagina pointer
-    }
+    } 
 }
